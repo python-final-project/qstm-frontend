@@ -1,6 +1,7 @@
 # quarantine-student-task-manager
 
 ## Overview  
+* App to help parents manage their children's homework, websites, and associated passwords.
 
 
 ## Feature Tasks and Requirements  
@@ -17,6 +18,10 @@
 ## Authors  
 - Software Developer: Joseph Zabaleta
   - [Official Github](https://github.com/joseph-zabaleta)  
+ - Software Developer: Jesse Pena
+  - [Official Github](https://github.com/jpchato)  
+ - Software Developer: Iris Leal
+  - [Official Github](https://github.com/ilealm)  
 
 
 ## Collaborations  
