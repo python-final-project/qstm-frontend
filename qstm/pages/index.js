@@ -5,7 +5,12 @@ import Login from '../components/LoginForm'
 const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/users/';
 
 
-class App extends React.Component {
+export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   render(){      
     return <div>
       <main>
@@ -14,5 +19,3 @@ class App extends React.Component {
       </div>
   }
 }
-
-export default App;
