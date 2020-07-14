@@ -17,10 +17,10 @@ export default class App extends React.Component {
   async LoginHandler(info) {
       console.log(info.username)
       console.log(info.password == '')
-      // const response = await axios.get(url, info);
-      const query = url +  '?account_name=' + info.username + '&password=' + info.password
+      const response = await axios.get(url, info);
+      // const query = url +  '?account_name=' + info.username + '&password=' + info.password
       console.log(query)
-      const response = await axios.get(query)
+      // const response = await axios.get(query)
       // console.log(url + query)
       console.log(response)
       // console.log(url, info)
