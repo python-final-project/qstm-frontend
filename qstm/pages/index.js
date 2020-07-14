@@ -9,12 +9,33 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.LoginHandler = this.LoginHandler.bind(this);    
   }
+
+
+  async LoginHandler(info) {
+      console.log(info.username)
+      console.log(info.password == '')
+      // const response = await axios.get(url, info);
+      const query = url +  '?account_name=' + info.username + '&password=' + info.password
+      console.log(query)
+      const response = await axios.get(query)
+      // console.log(url + query)
+      console.log(response)
+      // console.log(url, info)
+      // console.log(response.config.url)
+  }
+
+
+
+
+
 
   render(){      
     return <div>
       <main>
-        <Login />      
+        <Login onLogin={this.LoginHandler}/>      
       </main>      
       </div>
   }

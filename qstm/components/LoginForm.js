@@ -8,44 +8,49 @@ export default class Login extends React.Component{
   constructor(props) {
       super(props)
       this.state = {
-          name:'',
-          value :'',
+          username:'',
+          password :'',
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-  }
+      // this.onLogin = this.onLogin.bind(this);
+   }
 
   handleChange(event){
     if (event.target.name === "loginUserName"){
-      const newName = event.target.value;
+      const newValue = event.target.value;
       this.setState( {
-          name : newName
+          username : newValue
       })        
     }
   
     if (event.target.name === "loginPassword"){
       const newValue = event.target.value;
       this.setState( {
-          value : newValue
+        password : newValue
       })        
     }  
   }
   
 
   handleSubmit(event) {
-    event.preventDefault();
-    // alert(event. .id)
-    console.log(event.target)
-    console.log(this.state.name)
-    console.log(this.state.value)
-    // alert(this.state)
-    // this.props.onLoginCreate(this.state);
+    event.preventDefault();    
+    // console.log(this.state.username)
+    // console.log(this.state.password)
+    this.props.onLogin(this.state)
+    const newUsername = ''
+    const newPassword = ''
+    this.setState({
+      username: newUsername,
+      password: newPassword,
+    })
+
+
   }
 
   render(){
     return (
       <form onSubmit={this.handleSubmit }>
-          {/* <h4> Please add a element to the Thing List</h4> */}
           <label> User: </label>
           <input 
             name="loginUserName" type="text" value={this.state.name}  onChange={this.handleChange}>  
