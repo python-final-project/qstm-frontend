@@ -1,9 +1,12 @@
+import React from 'react';
 import SiteForm from '../../components/SiteForm';
 import PassForm from '../../components/PassForm';
 import SiteList from '../../components/SiteList';
-import { getSitesByStudentId } from '../../utils/studentSites'
-import axios from 'axios'
-import ApiUrl from '../../constants/url'
+import ParentNav from '../../components/ParentNav';
+// import ManageSites from '../../components/ManageSites';
+import { getSitesByStudentId } from '../../utils/studentSites';
+import axios from 'axios';
+import ApiUrl from '../../constants/url';
 
 
 export default class ParentProfile extends React.Component {
@@ -43,11 +46,12 @@ export default class ParentProfile extends React.Component {
         })
     }
 
+
     async siteSubmitHandler(siteInfo) {
         
         siteInfo.student_id = this.state.activeStudent
 
-        // const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/sites/'
+        // const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/sites/' 
 
         const url = ApiUrl.BASE + ApiUrl.SITE
 
@@ -69,11 +73,18 @@ export default class ParentProfile extends React.Component {
         )
     }
 
+
     showSiteForm = () => {
         return (
             <SiteForm onSubmit={this.siteSubmitHandler} />
         )
     }
+
+
+    showUpdateForm = () => {
+        console.log('it works!')
+    }
+
 
     render() {
 
@@ -82,6 +93,7 @@ export default class ParentProfile extends React.Component {
 
         return (
             <>
+                <ParentNav id={this.state.activeParent.id}/>
                 <h1>My Account Setting Page</h1>
 
                 <hr/>
@@ -92,7 +104,7 @@ export default class ParentProfile extends React.Component {
                     </h3>
                 </div>
 
-                <div>
+                <div> 
                     <h3>
                         Select Student
                         <select onChange={this.handleStudentChange}>
@@ -107,6 +119,8 @@ export default class ParentProfile extends React.Component {
                 <hr/>
 
                 <div style={this.state.activeStudent != -1 ? {} : {display:'none'}}>
+                    
+                    {/* <ManageSites sites={this.state.siteList} activeStudent={this.state.activeStudent} /> */}
                     <h3>
                         Manage Site Information:
                     </h3>
@@ -125,6 +139,7 @@ export default class ParentProfile extends React.Component {
     }
 }
 
+
 async function getData(url) {
     
     const response = await fetch(url);
@@ -140,8 +155,6 @@ export async function getServerSideProps(context) {
     const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
     const newStudentList = await getData(studentsUrl)
     const newActiveParent = await getData(parentUrl)
-
-    console.log(newActiveParent)
 
     return {
         props: {
