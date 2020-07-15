@@ -22,6 +22,12 @@ import React from 'react'
 //     )
 // }
 
+// for each fiedl:
+//   display it
+//  handle change and up to state
+
+
+
 // start
 export default class TaskForm extends React.Component {
   constructor(props) {
@@ -34,6 +40,7 @@ export default class TaskForm extends React.Component {
       description     : this.props.task.description ,
       priority        : this.props.task.priority ,
       completed       : this.props.task.completed ,
+      
       date_completed  : this.props.task.date_completed ,
       student_id      : this.props.task.student_id,
     }
@@ -72,6 +79,27 @@ export default class TaskForm extends React.Component {
       })
     }
 
+    
+    if (event.target.name === "completed"){    
+      const newCompleted = ! this.state.completed
+      let newDate_completed = this.state.date_completed
+      console.log('newDate_completed', newDate_completed)  
+
+      if ((newCompleted == true) && (newDate_completed == null)) {
+          newDate_completed = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+      }
+
+
+      if (newCompleted == false){
+        newDate_completed = null
+      }
+
+      this.setState({
+        completed       : newCompleted,
+        date_completed  : newDate_completed,
+      })
+    }
+
     // force to update the student_id
     const retrive_student_id = document.getElementById("student_id").value;
     this.setState({
@@ -81,7 +109,7 @@ export default class TaskForm extends React.Component {
   }
 
 
-  handleSubmit(event) {      
+  handleSubmit(event) {            
       event.preventDefault();        
       this.props.onTaskCreate(this.state);
       this.setState({
@@ -95,24 +123,36 @@ export default class TaskForm extends React.Component {
   render() {
       return (
           <form onSubmit={this.handleSubmit}>
-              <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
-              <input
-                  name="student_id" id="student_id" value={this.props.student_id} >
-              </input> <br></br>
-
-              <label>  Description  </label>   <br></br>
-              <input
-                  name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
-              </input> <br></br>
               <label>  Class topic  </label>   <br></br>
               <input
                   name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
               </input> <br></br>
 
+
+              <label> id: <b> {this.state.id} </b> </label>
+              <input name="id" id="id" value={this.state.id} >
+              </input> <br></br>
+
+              <input
+                  name="student_id" id="student_id" value={this.state.student_id} >
+              </input> <br></br>
+
+              <label>  Date Created  </label>  <label> id: <b> {this.state.date_created} </b> </label>
+              <br></br>
+
               <label>  Due date  </label>   <br></br>
               <input
                   name="due_date" type="date" value={this.state.due_date} onChange={this.handleChange}>
               </input> <br></br>
+
+
+
+
+              <label>  Description  </label>   <br></br>
+              <input
+                  name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
+              </input> <br></br>
+
               
               <label>  Priority  </label>   <br></br>
                 <select name="priority" id="priority"  onChange={this.handleChange}>
@@ -123,6 +163,13 @@ export default class TaskForm extends React.Component {
                 </select>
               
               <br></br>
+
+             
+              <input type="checkbox" id="completed" name="completed" 
+              checked={this.state.completed}  onChange={this.handleChange} />
+              <label for="completed"> Completed</label>
+
+
               <br></br>
               <button>Update</button>
           </form>
