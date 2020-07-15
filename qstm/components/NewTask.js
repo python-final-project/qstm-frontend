@@ -11,11 +11,9 @@ class NewTask extends React.Component {
           student_id: props.student_id,
         }
         this.taskCreateHandler = this.taskCreateHandler.bind(this);
-        // console.log("student inside newTask", this.state.student_id)
     }
 
     async taskCreateHandler(tasks) {   
-      console.log(tasks)
       console.log("now on newtask, this are the values to save:", tasks)
         // const response = await axios.post(url, tasks);
 

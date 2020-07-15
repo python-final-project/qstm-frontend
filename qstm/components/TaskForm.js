@@ -10,7 +10,6 @@ export default class TaskForm extends React.Component {
         due_date: '', 
         priority: 'N',
       }
-        console.log("nnow in TaskForm", this.props.student_id);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -46,8 +45,6 @@ export default class TaskForm extends React.Component {
 
       // force to update the student_id
       const retrive_student_id = document.getElementById("student_id").value;
-      // console.log('retrive_student_id in handle change', retrive_student_id)
-      // student_id : retrive_student_id,
       this.setState({
         student_id : retrive_student_id,
       });
@@ -57,23 +54,11 @@ export default class TaskForm extends React.Component {
 
     handleSubmit(event) {      
         event.preventDefault();        
-
-        // const retrive_student_id = document.getElementById("student_id").value;
-        // console.log('retrive_student_id in submit', retrive_student_id)
-        // // student_id : retrive_student_id,
-        // this.setState({
-        //   student_id : 'iris',
-        // });
-
-        // console.log('state to upload:', this.state)
         this.props.onTaskCreate(this.state);
         this.setState({
-          // student_id : this.props.student_id,
-          // student_id : this.state.student_id,
           description:'',
           class_topic:'',
           due_date: '',
-          priority: 'N',
         });
     }
 
@@ -83,7 +68,7 @@ export default class TaskForm extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
                 <input
-                    name="student_id" id="student_id" type="text"  value={this.props.student_id} >
+                    name="student_id" id="student_id" type="hidden"  value={this.props.student_id} >
                 </input> <br></br>
 
                 <label>  Description  </label>   <br></br>
