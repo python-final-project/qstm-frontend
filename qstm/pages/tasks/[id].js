@@ -39,8 +39,7 @@ export default class TaskForm extends React.Component {
       class_topic     : this.props.task.class_topic ,
       description     : this.props.task.description ,
       priority        : this.props.task.priority ,
-      completed       : this.props.task.completed ,
-      
+      completed       : this.props.task.completed ,      
       date_completed  : this.props.task.date_completed ,
       student_id      : this.props.task.student_id,
     }
@@ -123,52 +122,46 @@ export default class TaskForm extends React.Component {
   render() {
       return (
           <form onSubmit={this.handleSubmit}>
+              
+              <label>  Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
+              <br></br><br></br>
+
+
               <label>  Class topic  </label>   <br></br>
-              <input
-                  name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
-              </input> <br></br>
-
-
-              <label> id: <b> {this.state.id} </b> </label>
-              <input name="id" id="id" value={this.state.id} >
-              </input> <br></br>
-
-              <input
-                  name="student_id" id="student_id" value={this.state.student_id} >
-              </input> <br></br>
-
-              <label>  Date Created  </label>  <label> id: <b> {this.state.date_created} </b> </label>
-              <br></br>
-
-              <label>  Due date  </label>   <br></br>
-              <input
-                  name="due_date" type="date" value={this.state.due_date} onChange={this.handleChange}>
-              </input> <br></br>
-
-
-
+              <input name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
+              </input> <br></br> <br></br>
 
               <label>  Description  </label>   <br></br>
-              <input
-                  name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
-              </input> <br></br>
+              <input name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
+              </input> <br></br> <br></br>
 
-              
+              <label>  Due date  </label>   <br></br>
+              <input name="due_date" type="date" value={this.state.due_date} onChange={this.handleChange}>
+              </input> <br></br> <br></br>
+
+
               <label>  Priority  </label>   <br></br>
                 <select name="priority" id="priority"  onChange={this.handleChange}>
                     <option value="U">Urgent</option>
                     <option value="I">Important</option>
                     <option value="N" selected>Normal</option>
                     <option value="L">Low</option>
-                </select>
-              
-              <br></br>
+                </select> <br></br> <br></br>
 
              
               <input type="checkbox" id="completed" name="completed" 
               checked={this.state.completed}  onChange={this.handleChange} />
-              <label for="completed"> Completed</label>
+              <label for="completed"> Completed</label>  
+              <br></br> <br></br>
 
+
+              <label> id:</label>
+              <input name="id" id="id" value={this.state.id} >
+              </input> <br></br>
+              <label> student_id:</label>
+              <input
+                  name="student_id" id="student_id" value={this.state.student_id} >
+              </input> <br></br>
 
               <br></br>
               <button>Update</button>
