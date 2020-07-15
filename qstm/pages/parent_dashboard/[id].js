@@ -7,14 +7,7 @@ import NewTask from '../../components/NewTask'
 const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
 const students_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/'
 const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/'
-// TODO:
-// get parent id
-// get students
-// get task by student
-// allows the parent to add / upd / del task
-// show history of tasks
-// show % of task done
-// display Parent'a name in the h1
+
 
 export default class ParentDashboard extends React.Component {
   constructor(props) {
@@ -27,6 +20,7 @@ export default class ParentDashboard extends React.Component {
       currentStudent_name :props.students[0].name,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleCreateTask = this.handleCreateTask.bind(this)
    
   }
 
@@ -36,8 +30,7 @@ export default class ParentDashboard extends React.Component {
     // TODO: ADD completed=false to the query
     const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
     const tasks = await response.json();  
-    // upd the current student
-
+    
     this.setState({
         currentStudent_id : selectedStudentId,
         tasks : tasks,
@@ -45,20 +38,15 @@ export default class ParentDashboard extends React.Component {
 
   }
 
+  handleCreateTask(task){
+    // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
+    // the child can call it BS is send as a prop in <NewTask....
+    // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
 
-    // when the user add a new task, reload the page???, how to stay  
-  async onReRender() {
-    alert("onReRender")
-    // const selectedStudentId = event.target.value
- 
-    // const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
-    // const tasks = await response.json();  
-
-
-    // this.setState({
-    //     currentStudent_id : selectedStudentId,
-    //     tasks : tasks,
-    // }  )
+    const newTasks = this.state.tasks.concat(task)
+    this.setState({
+      tasks : newTasks,
+    })
 
   }
 
@@ -80,7 +68,7 @@ export default class ParentDashboard extends React.Component {
         <ol>
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
-        <NewTask student_id={ this.state.currentStudent_id}  />
+        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}  />
         
       </div>
   }
