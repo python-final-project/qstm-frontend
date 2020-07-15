@@ -2,25 +2,25 @@ import React from 'react';
 import SiteForm from '../../components/SiteForm';
 import PassForm from '../../components/PassForm';
 import SiteList from '../../components/SiteList';
-import ParentNav from '../../components/ParentNav';
-// import ManageSites from '../../components/ManageSites';
+import StudentNav from '../../components/StudentNav';
 import { getSitesByStudentId } from '../../utils/studentSites';
 import axios from 'axios';
 import ApiUrl from '../../constants/url';
 
 
-export default class ParentProfile extends React.Component {
+export default class StudentProfile extends React.Component {
     
     constructor(props) {
         super(props);
     
         this.state = {
-            activeStudent: -1,
-            activeParent: props.activeParent,
+            activeStudent: props.activeStudent,
+            siteList: props.siteList,
+
+            // activeParent: props.activeParent,
+
             showPassForm: false,
             showSiteForm: false,
-            studentList: props.studentList,
-            siteList: [],
         }
 
         this.handleStudentChange = this.handleStudentChange.bind(this)
@@ -49,15 +49,13 @@ export default class ParentProfile extends React.Component {
 
     async siteSubmitHandler(siteInfo) {
         
-        siteInfo.student_id = this.state.activeStudent
-
-        // const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/sites/' 
+        siteInfo.student_id = this.state.activeStudent.id
 
         const url = ApiUrl.BASE + ApiUrl.SITE
 
         await axios.post(url, siteInfo)
         
-        let newSiteList = await getSitesByStudentId(this.state.activeStudent)
+        let newSiteList = await getSitesByStudentId(this.state.activeStudent.id)
         
         this.setState({
             siteList: newSiteList,
@@ -93,34 +91,19 @@ export default class ParentProfile extends React.Component {
 
         return (
             <>
-                <ParentNav id={this.state.activeParent.id}/>
-                <h1>My Account Setting Page - Parent View</h1>
+                <StudentNav id={this.state.activeStudent.id}/>
+                <h1>My Account Setting Page - Student View</h1>
 
                 <hr/>
 
                 <div>
                     <h3 style={{color: randomColor}} >
-                        Welcome! {this.state.activeParent.name}!!!
-                    </h3>
-                </div>
-
-                <div> 
-                    <h3>
-                        Select Student
-                        <select onChange={this.handleStudentChange}>
-                            <option value="-1">SELECT STUDENT</option> 
-                            {this.state.studentList.map(student => 
-                            <option value={student.id} key={student.id}>{student.name}</option>
-                            )}
-                        </select>
+                        Welcome! {this.state.activeStudent.name}!!!
                     </h3>
                 </div>
 
                 <hr/>
 
-                <div style={this.state.activeStudent != -1 ? {} : {display:'none'}}>
-                    
-                    {/* <ManageSites sites={this.state.siteList} activeStudent={this.state.activeStudent} /> */}
                     <h3>
                         Manage Site Information:
                     </h3>
@@ -133,7 +116,6 @@ export default class ParentProfile extends React.Component {
                     </button>
                     
                     {this.state.showSiteForm ? this.showSiteForm() : null}
-                </div>
             </>
         )
     }
@@ -151,15 +133,17 @@ async function getData(url) {
 
 export async function getServerSideProps(context) {
     
-    const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
-    const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
-    const newStudentList = await getData(studentsUrl)
-    const newActiveParent = await getData(parentUrl)
+    const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `${context.params.id}`
+    const sitesUrl = ApiUrl.BASE + ApiUrl.SITE + `?student_id=${context.params.id}`
+
+    const newActiveStudent = await getData(studentUrl)
+    const newSiteList = await getData(sitesUrl)
+    
 
     return {
         props: {
-            studentList: newStudentList,
-            activeParent: newActiveParent,
+            activeStudent: newActiveStudent,
+            siteList: newSiteList,
         },
     }
 }
