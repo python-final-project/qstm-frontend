@@ -15,6 +15,7 @@ class NewTask extends React.Component {
     }
 
     async taskCreateHandler(tasks) {   
+        // TODO: it duedate = none, set one
         console.log("now on newtask, this are the values to save:", tasks)
         const response = await axios.post(url, tasks);
  
