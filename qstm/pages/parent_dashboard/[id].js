@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import StudentTask from '../../components/StudentTask'
+import Task from '../../components/Task'
+
 
 const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
 const students_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/'
@@ -21,21 +22,24 @@ export default class ParentDashboard extends React.Component {
       students : props.students,
       currentStudent : props.students[0],
       tasks : props.tasks, 
+      currentStudent_id :props.students[0].id,
+      currentStudent_name :props.students[0].name,
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
   async handleChange(event) {
-    // console.log(event.target.value)
-    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}`);
+    const selectedStudentId = event.target.value
+ 
+    // TODO: ADD completed=false to the query
+    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
     const tasks = await response.json();  
     // upd the current student
     // from here i want to display the tasks i just loaded    
     this.setState({
-      // currentStudent : vent.target.value,
-      tasks : tasks,
-    }      
-    )
+        currentStudent_id : selectedStudentId,
+        tasks : tasks,
+    }  )
     console.log('tasks', tasks)
   }
 
@@ -43,16 +47,22 @@ export default class ParentDashboard extends React.Component {
   render(){      
     return <div>
       <h1>Parent's Dashboard </h1>
+
+      <label> View tasks for :   </label>
+
       <select onChange={this.handleChange}>
       {this.state.students.map(student =>         
         <option key={student.id} value={student.id} > {student.name} </option>
-      )}
-         
+      )}         
       </select>
       
+        <p> There are {this.state.tasks.length} tasks for this student</p>
+   
+        <ol>
+            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+        </ol>
 
-      {/* {this.state.students.map(student => <StudentTask key={student.id} student={student} />)} */}
-        <p> {this.state.tasks.length} </p>
+        
       </div>
   }
 }
