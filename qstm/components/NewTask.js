@@ -11,30 +11,34 @@ class NewTask extends React.Component {
           student_id: props.student_id,
         }
         this.taskCreateHandler = this.taskCreateHandler.bind(this);
+       
     }
 
     async taskCreateHandler(tasks) {   
         console.log("now on newtask, this are the values to save:", tasks)
         const response = await axios.post(url, tasks);
+        // response.data is the data i want to add to parent.task array
+        console.log('response of the added', response.data)
 
         // decision: add the newly created to state or fetch brand new
         // let's go with option 1
-        // const savedTask = response.data;
+        const savedTask = response.data;
 
         // const updatedTask = this.state.tasks.concat(savedTask);
 
         // this.setState({
         //     // tasks: updatedTasks
         // })
-
+      
     }
+
 
     render() {
         return (
             <div className="container">             
                 <h4>Add New task for this student {this.props.student_id} </h4>
                 
-                <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.props.student_id} />
+                <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.props.student_id}  />
    
             </div>
         )

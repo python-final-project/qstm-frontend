@@ -5,16 +5,24 @@ import Link from 'next/link'
 export default function Task(props) {
     return (
       <>
-        <li key={props.task.id}>            
+        <li key={props.task.id}>      
 
-            {props.task.description}
+            <Link href="/tasks/[id]" as={`/tasks/${props.task.id}`}>
+                <a>                   
+                  {props.task.description}
+                </a>
+            </Link>
+
+
             <ul>
-              <li> <b> Description: </b>  {props.task.description} </li>  
-              <li> <b> Date created: </b>  {props.task.date_created} </li>  
+              {/* <li> <b> id: </b>  {props.task.id} </li>  */}
+              {/* <li> <b> Description: </b>  {props.task.description} </li>   */}
               <li> <b> Class topic: </b>  {props.task.class_topic} </li>  
+              <li> <b> Date created: </b>  {props.task.date_created} </li>  
               <li> <b> Priority: </b>  {props.task.priority} </li>  
               <li> <b> Completed: </b> { String( props.task.completed)} </li>  
               <li> <b> Date completed: </b>  {props.task.date_completed} </li>  
+          
             </ul> 
         </li>
       </>
