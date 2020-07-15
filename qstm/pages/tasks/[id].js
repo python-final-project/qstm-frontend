@@ -5,30 +5,9 @@ import React from 'react'
 // const url = 'https://ileal-summer-camp-api.herokuapp.com/api/v1/courses/';
 // const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
-// export default function TaskDetail(props) {
-  
-//     const router = useRouter();
-
-//     async function deleteHandler() {
-//         const response = await axios.delete(url + props.course.id)
-//         router.push('/');
-//     }
-
-//     return (
-//         <>
-//         <h1>I am a single task {props.task.description} </h1>
-//         {/* <button onClick={() => deleteHandler(props.course.id)}>Delete</button> */}
-//         </>
-//     )
-// }
-
-// for each fiedl:
-//   display it
-//  handle change and up to state
 
 
 
-// start
 export default class TaskForm extends React.Component {
   constructor(props) {
     super(props)
@@ -47,7 +26,20 @@ export default class TaskForm extends React.Component {
 
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+
+      this.taskUpdateHandler = this.taskUpdateHandler.bind(this);
   }
+
+  async taskUpdateHandler(tasks) {           
+    // console.log("now on taskUpdateHandler, this are the values to save:", tasks)
+    // const response = await axios.post(url, tasks);
+
+    // const savedTask = response.data;
+
+    // call my parent and send the new object I just created.
+    // this function exists only in my parent, and I'm calling it, and I received as a prop  
+    this.props.onUpdateTask("savedTask")
+}
 
   handleChange(event) {
     if (event.target.name === "description"){
@@ -108,9 +100,23 @@ export default class TaskForm extends React.Component {
   }
 
 
-  handleSubmit(event) {            
-      event.preventDefault();        
-      this.props.onTaskCreate(this.state);
+  handleSubmit(event) {       
+      event.preventDefault(); 
+      
+      
+
+      let UpdTaskState = { 
+        id              : this.state.id, 
+        date_created    : this.state.date_created,  
+        due_date        : this.state.due_date ,
+        class_topic     : this.state.class_topic , 
+        description     : this.state.description,
+        priority        : this.state.priority ,
+        completed       : this.state.completed ,      
+        date_completed  : this.state.date_completed ,
+        student_id      : this.state.student_id,
+        }
+     
       this.setState({
         description:'',
         class_topic:'',
@@ -174,7 +180,6 @@ export default class TaskForm extends React.Component {
 }
 
 
-// end
 
 
 

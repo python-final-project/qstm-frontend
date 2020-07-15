@@ -21,6 +21,7 @@ export default class ParentDashboard extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleCreateTask = this.handleCreateTask.bind(this)
+    this.handleUpdateTask = this.handleUpdateTask.bind(this)
    
   }
 
@@ -51,6 +52,20 @@ export default class ParentDashboard extends React.Component {
   }
 
 
+  handleUpdateTask(task){
+    console.log('in handleUpdateTask')
+    // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
+    // the child can call it BS is send as a prop in <NewTask....
+    // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
+
+    // const newTasks = this.state.tasks.concat(task)
+    // this.setState({
+    //   tasks : newTasks,
+    // })
+
+  }
+
+
   render(){      
     return <div>
       <h1>Parent's Dashboard </h1>
@@ -66,9 +81,9 @@ export default class ParentDashboard extends React.Component {
         <p> There are {this.state.tasks.length} tasks for this student</p>
    
         <ol>
-            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+            {this.state.tasks.map(task => <Task key={task.id} task={task} onUpdateTask={this.handleUpdateTask} />)}
         </ol>
-        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}  />
+        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}   />
         
       </div>
   }
