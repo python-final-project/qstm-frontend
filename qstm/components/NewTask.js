@@ -4,18 +4,19 @@ import TaskForm from '../components/TaskForm'
 
 const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
-class NewTask extends React.Component {
-
+class NewTask extends React.Component {    
     constructor(props) {
         super(props);
         this.state = {
-          student_id: props.student_id
+          student_id: props.student_id,
         }
         this.taskCreateHandler = this.taskCreateHandler.bind(this);
+        // console.log("student inside newTask", this.state.student_id)
     }
 
     async taskCreateHandler(tasks) {   
       console.log(tasks)
+      console.log("now on newtask, this are the values to save:", tasks)
         // const response = await axios.post(url, tasks);
 
         // decision: add the newly created to state or fetch brand new
@@ -35,7 +36,7 @@ class NewTask extends React.Component {
             <div className="container">             
                 <h4>Add New task for this student {this.props.student_id} </h4>
                 
-                <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.state.student_id} />
+                <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.props.student_id} />
    
             </div>
         )

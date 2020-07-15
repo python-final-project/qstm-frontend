@@ -36,12 +36,12 @@ export default class ParentDashboard extends React.Component {
     const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
     const tasks = await response.json();  
     // upd the current student
-    // from here i want to display the tasks i just loaded    
+
     this.setState({
         currentStudent_id : selectedStudentId,
         tasks : tasks,
     }  )
-    // console.log('tasks', tasks)
+
   }
 
   render(){      
@@ -61,7 +61,6 @@ export default class ParentDashboard extends React.Component {
         <ol>
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
-        
         <NewTask student_id={ this.state.currentStudent_id } />
         
       </div>
