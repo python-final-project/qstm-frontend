@@ -4,8 +4,11 @@ export default class SiteForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        name : '',
-        }
+        url: '',
+        account: '',
+        password: '',
+        class_topic: '',
+      }
   
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,39 +16,46 @@ export default class SiteForm extends React.Component {
     }
   
     handleChange(event) {
-      const newName = event.target.value
+      // console.log(this.state['url'])
+      // let newState = {}
+      // newState[event.target.name] = event.target.value
+      // this.setState(newState)
       this.setState({
-        name: newName
+        [event.target.name]: event.target.value
       })
     }
-  
+    
     handleSubmit(event) {
       event.preventDefault();
-      this.props.onThingCreate(this.state);
+      
+      let siteInfo = {
+        url: this.state.url,
+        account: this.state.account,
+        password: this.state.password,
+        class_topic: this.state.class_topic,
+      }
+
+      this.props.onSubmit(siteInfo)
     }
-  
+    
     render() {
       return (
-        <form id="site-form" onSubmit="">
+        <form id="site-form" onSubmit={this.handleSubmit}>
 
           <label>Site URL:</label>
-          <input type="text"></input>
+          <input type="text" name="url" value={this.state.url} onChange={this.handleChange}></input>
           <br></br>
 
-          <label>Description:</label>
-          <input type="text"></input>
-          <br></br>
-
-          <label>Site Username:</label>
-          <input type="text"></input>
+          <label>Site Account Username:</label>
+          <input type="text" name="account" value={this.state.account} onChange={this.handleChange}></input>
           <br></br>
 
           <label>Site Password:</label>
-          <input type="text"></input>
+          <input type="text" name="password" value={this.state.password} onChange={this.handleChange}></input>
           <br></br>
 
-          <label>Class Teacher:</label>
-          <input type="text"></input>
+          <label>Class Topic // Site Name:</label>
+          <input type="text" name="class_topic" value={this.state.class_topic} onChange={this.handleChange}></input>
           <br></br>
 
           <button type="submit"> Add Site </button>
@@ -53,6 +63,3 @@ export default class SiteForm extends React.Component {
       )
     }
   } 
-
-  {/* <input type="text" value={this.state.name} onChange={this.handleChange}>
-            </input>     */}

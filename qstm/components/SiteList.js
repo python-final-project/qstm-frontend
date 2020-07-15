@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function SiteList(props) {
-    console.log('props sitelist', props)
+    // console.log('props sitelist', props)
     return (
         <>
         <h4>Site List</h4>
