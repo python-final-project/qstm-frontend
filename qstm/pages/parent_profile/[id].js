@@ -93,7 +93,7 @@ export default class ParentProfile extends React.Component {
 
         return (
             <>
-                <ParentNav />
+                <ParentNav id={this.state.activeParent.id}/>
                 <h1>My Account Setting Page</h1>
 
                 <hr/>
