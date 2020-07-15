@@ -14,22 +14,15 @@ class NewTask extends React.Component {
        
     }
 
-    async taskCreateHandler(tasks) {   
-        console.log("now on newtask, this are the values to save:", tasks)
+    async taskCreateHandler(tasks) {           
+        // console.log("now on newtask, this are the values to save:", tasks)
         const response = await axios.post(url, tasks);
-        // response.data is the data i want to add to parent.task array
-        console.log('response of the added', response.data)
-
-        // decision: add the newly created to state or fetch brand new
-        // let's go with option 1
+ 
         const savedTask = response.data;
 
-        // const updatedTask = this.state.tasks.concat(savedTask);
-
-        // this.setState({
-        //     // tasks: updatedTasks
-        // })
-      
+        // call my parent and send the new object I just created.
+        // this function exists only in my parent, and I'm calling it, and I received as a prop  
+        this.props.onCreateTask(savedTask)
     }
 
 
@@ -46,17 +39,4 @@ class NewTask extends React.Component {
 }
 
 export default NewTask
-
-// // export async function getStaticProps() {
-// export async function getServerSideProps() {
-
-//     // const response = await fetch(url);
-//     // const tasks = await response.json();
-
-//     return {
-//         props: {
-//             // tasks: tasks,
-//         },
-//     }
-// }
 

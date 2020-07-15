@@ -2,16 +2,21 @@ import React from 'react'
 
 export default class TaskForm extends React.Component {
     constructor(props) {
+      const due_date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+      
       super(props)
+
       this.state = {
         student_id : props.student_id,
         description : '',
         class_topic : '',
-        due_date: '', 
+        due_date: due_date, 
         priority: 'N',
       }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event) {
