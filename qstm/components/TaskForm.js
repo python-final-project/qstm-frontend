@@ -59,6 +59,7 @@ export default class TaskForm extends React.Component {
           description:'',
           class_topic:'',
           due_date: '',
+          // priority: 'N',
         });
     }
 
