@@ -154,6 +154,9 @@ export default class TaskForm extends React.Component {
               <label for="completed"> Completed</label>  
               <br></br> <br></br>
 
+              <label>  Date Completed  </label>  <label> <b> {this.state.date_completed} </b> </label>
+              <br></br><br></br>
+
 
               <label> id:</label>
               <input name="id" id="id" value={this.state.id} >
