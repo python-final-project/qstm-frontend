@@ -58,7 +58,7 @@ export default class UpdateSiteForm extends React.Component {
           <input type="text" name="class_topic" value={this.state.class_topic} onChange={this.handleChange}></input>
           <br></br>
 
-          <button type="submit"> Add Site </button>
+          <button type="submit"> Update </button>
         </form>
       )
     }
