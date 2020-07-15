@@ -16,13 +16,13 @@ function Nav(props) {
         <nav>
             <ul>
                 <li>
-                    <Link href={`/parent_profile/${props.id}`}>
+                    <Link href={`/students_profile/${props.id}`}>
                         {/* <a className={getStyle("home")}>Home</a> */}
                         <a>My Account Settings</a>
                     </Link>
                 </li>
                 <li>
-                    <Link href={`/parent_dashboard/${props.id}`}>
+                    <Link href={`/student_dashboard/${props.id}`}>
                         {/* <a className={getStyle("about")}>About Us</a> */}
                         <a>DashBoard</a>
                     </Link>

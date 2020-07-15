@@ -1,9 +1,9 @@
-import React from 'react'
-import axios from 'axios'
-import Task from '../../components/Task'
-import NewTask from '../../components/NewTask'
-import ApiUrl from '../../constants/url'
-
+import React from 'react';
+import axios from 'axios';
+import Task from '../../components/Task';
+import NewTask from '../../components/NewTask';
+import ApiUrl from '../../constants/url';
+import StudentNav from '../../components/StudentNav';
 
 
 export default class StudentDashboard extends React.Component {
@@ -55,6 +55,7 @@ export default class StudentDashboard extends React.Component {
 
     return (
     <>
+        <StudentNav id={this.state.activeStudent.id} />
         <h1>Student's Dashboard </h1>
 
         <hr />
