@@ -15,8 +15,6 @@ export default function Task(props) {
 
 
             <ul>
-              {/* <li> <b> id: </b>  {props.task.id} </li>  */}
-              {/* <li> <b> Description: </b>  {props.task.description} </li>   */}
               <li> <b> Class topic: </b>  {props.task.class_topic} </li>  
               <li> <b> Date created: </b>  {props.task.date_created} </li>  
               <li> <b> Priority: </b>  {props.task.priority} </li>  

@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router'
-import axios from 'axios'
+import { withRouter } from 'next/router'
+import Router from 'next/router'
 
+import axios from 'axios'
 import React from 'react'
+
 // const url = 'https://ileal-summer-camp-api.herokuapp.com/api/v1/courses/';
 // const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
@@ -10,6 +13,8 @@ import React from 'react'
 
 export default class TaskForm extends React.Component {
   constructor(props) {
+
+
     super(props)
     this.state = {
       id              : this.props.task.id ,
@@ -23,23 +28,23 @@ export default class TaskForm extends React.Component {
       student_id      : this.props.task.student_id,
     }
 
-
+      // const router = withRouter();
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
-      this.taskUpdateHandler = this.taskUpdateHandler.bind(this);
+      //// UPDATE PART
+      async function updateHandler() {        
+        const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
+        const response = await axios.put(upd_url, this.state);
+        router.push('/');
+
+        // const url = 'https://drf-snacks-api.herokuapp.com/api/v1/snacks/';
+        // const response = await axios.delete(url + props.snack.id)
+
+      }
+      // const new_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
+      
   }
-
-  async taskUpdateHandler(tasks) {           
-    // console.log("now on taskUpdateHandler, this are the values to save:", tasks)
-    // const response = await axios.post(url, tasks);
-
-    // const savedTask = response.data;
-
-    // call my parent and send the new object I just created.
-    // this function exists only in my parent, and I'm calling it, and I received as a prop  
-    this.props.onUpdateTask("savedTask")
-}
 
   handleChange(event) {
     if (event.target.name === "description"){
@@ -100,28 +105,32 @@ export default class TaskForm extends React.Component {
   }
 
 
-  handleSubmit(event) {       
-      event.preventDefault(); 
-      
-      
+   handleSubmit(event) {       
+      event.preventDefault();      
 
-      let UpdTaskState = { 
-        id              : this.state.id, 
-        date_created    : this.state.date_created,  
-        due_date        : this.state.due_date ,
-        class_topic     : this.state.class_topic , 
-        description     : this.state.description,
-        priority        : this.state.priority ,
-        completed       : this.state.completed ,      
-        date_completed  : this.state.date_completed ,
-        student_id      : this.state.student_id,
-        }
+      console.log('handlesubmit')
+      // const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
+      const upd_url = 'https://www.google.com/';
+      // router.push(upd_url);
+      withRouter(upd_url)
+      
+      // let UpdTaskState = { 
+      //   id              : this.state.id, 
+      //   date_created    : this.state.date_created,  
+      //   due_date        : this.state.due_date ,
+      //   class_topic     : this.state.class_topic , 
+      //   description     : this.state.description,
+      //   priority        : this.state.priority ,
+      //   completed       : this.state.completed ,      
+      //   date_completed  : this.state.date_completed ,
+      //   student_id      : this.state.student_id,
+      //   }
      
-      this.setState({
-        description:'',
-        class_topic:'',
-        due_date: '',
-      });
+      // this.setState({
+      //   description:'',
+      //   class_topic:'',
+      //   due_date: '',
+      // });
   }
 
 
@@ -173,14 +182,16 @@ export default class TaskForm extends React.Component {
               </input> <br></br>
 
               <br></br>
-              <button>Update</button>
+              <button>update</button>
+              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}
+              
           </form>
       )
   }
 }
 
 
-
+<span onClick={() => Router.push('/about')}>Click me</span>
 
 
 
@@ -188,7 +199,7 @@ export async function getServerSideProps(context) {
     // console.log('entering getServerSideProps....:',context.params.id)
     const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${context.params.id}`);
     const task = await response.json();
-    console.log('task',task)
+    // console.log('task',task)
     return {
         props: {
           task: task,
