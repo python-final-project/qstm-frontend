@@ -1,8 +1,8 @@
 import React from 'react';
-import SiteForm from '../../components/SiteForm';
+import SiteForm from '../../components/sites/SiteForm';
 import PassForm from '../../components/PassForm';
-import SiteList from '../../components/SiteList';
-import StudentNav from '../../components/StudentNav';
+import SiteList from '../../components/sites/SiteList';
+import StudentNav from '../../components/nav/StudentNav';
 import { getSitesByStudentId } from '../../utils/studentSites';
 import axios from 'axios';
 import ApiUrl from '../../constants/url';

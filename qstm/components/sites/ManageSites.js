@@ -4,7 +4,7 @@ import React from 'react';
 import SiteList from './SiteList';
 import SiteForm from './SiteForm';
 import axios from 'axios';
-import ApiUrl from '../constants/url';
+import ApiUrl from '../../constants/url';
 
 export default class ManageSites extends React.Component {
 

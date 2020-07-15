@@ -1,9 +1,9 @@
 import React from 'react';
-import SiteForm from '../../components/SiteForm';
+import SiteForm from '../../components/sites/SiteForm';
 import PassForm from '../../components/PassForm';
-import SiteList from '../../components/SiteList';
-import ParentNav from '../../components/ParentNav';
-// import ManageSites from '../../components/ManageSites';
+import SiteList from '../../components/sites/SiteList';
+import ParentNav from '../../components/nav/ParentNav';
+
 import { getSitesByStudentId } from '../../utils/studentSites';
 import axios from 'axios';
 import ApiUrl from '../../constants/url';
@@ -120,7 +120,6 @@ export default class ParentProfile extends React.Component {
 
                 <div style={this.state.activeStudent != -1 ? {} : {display:'none'}}>
                     
-                    {/* <ManageSites sites={this.state.siteList} activeStudent={this.state.activeStudent} /> */}
                     <h3>
                         Manage Site Information:
                     </h3>
