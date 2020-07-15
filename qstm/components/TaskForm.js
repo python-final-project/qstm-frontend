@@ -102,6 +102,17 @@ export default class TaskForm extends React.Component {
                 <br></br>
                 <br></br>
                 <button>Add</button>
+              <style jsx>
+                {`
+                form{
+                  margin: auto;
+                }
+                label {
+                  color: #ff8a01;
+                  
+                }
+                `}
+              </style>
             </form>
         )
     }

@@ -55,12 +55,15 @@ export default class StudentDashboard extends React.Component {
 
     return (
     <>
+        <body>
+        <link rel="stylesheet"
+          href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
         <StudentNav id={this.state.activeStudent.id} />
         <h1>Student's Dashboard </h1>
 
         <hr />
 
-        <h3 style={{color: randomColor}}>
+        <h3>
             Welcome!! {this.state.activeStudent.name}!!!
         </h3>
         <p> There are {this.state.tasks.length} tasks for you</p>
@@ -76,7 +79,34 @@ export default class StudentDashboard extends React.Component {
         <hr />
 
         <NewTask student_id={ this.state.activeStudent.id} onCreateTask={this.handleCreateTask}  />
-        
+
+      </body>
+      <style jsx>{`
+        body {
+          // height: auto;
+          width: auto;
+          margin: auto;
+          background-color: #4d597a;
+          
+        }
+        h1 {
+          align: center;
+          text-align: center;
+          // color: #33a7c9;
+        }
+        ol {
+          color: #ff8a01;
+        }
+        label {
+          color: #ff8a01;
+        }
+        p {
+          color: #ff8a01;
+        }
+        form {
+          float: left;
+        }
+      `}</style>  
     </>
     )}
 }
