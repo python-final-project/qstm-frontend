@@ -33,15 +33,16 @@ export default class TaskForm extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
 
       //// UPDATE PART
-      async function updateHandler() {        
-        const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
-        const response = await axios.put(upd_url, this.state);
-        router.push('/');
+      // async function updateHandler() {        
+      //   const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
+      //   const response = await axios.put(upd_url, this.state);
+      //   const router = useRouter();
+      //   router.push('/');
 
         // const url = 'https://drf-snacks-api.herokuapp.com/api/v1/snacks/';
         // const response = await axios.delete(url + props.snack.id)
 
-      }
+      // }
       // const new_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
       
   }
@@ -105,34 +106,31 @@ export default class TaskForm extends React.Component {
   }
 
 
-   handleSubmit(event) {       
-      event.preventDefault();      
 
-      console.log('handlesubmit')
-      // const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
-      const upd_url = 'https://www.google.com/';
-      // router.push(upd_url);
-      withRouter(upd_url)
-      
-      // let UpdTaskState = { 
-      //   id              : this.state.id, 
-      //   date_created    : this.state.date_created,  
-      //   due_date        : this.state.due_date ,
-      //   class_topic     : this.state.class_topic , 
-      //   description     : this.state.description,
-      //   priority        : this.state.priority ,
-      //   completed       : this.state.completed ,      
-      //   date_completed  : this.state.date_completed ,
-      //   student_id      : this.state.student_id,
-      //   }
-     
-      // this.setState({
-      //   description:'',
-      //   class_topic:'',
-      //   due_date: '',
-      // });
+  //  handleSubmit(event) {       
+  //     event.preventDefault();       
+  //     console.log('handlesubmit')
+  //     // i want to change the page and in that page make the API call
+  //     // plan b. can i call the API call here?
+ 
+  // }
+
+  async handleSubmit(event) {
+    event.preventDefault(); 
+    console.log('handlesubmit', this.state)
+    // const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
+    // const tasks = await response.json();  
+    
+    const upd_url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
+    const response = await axios.put(upd_url, this.state);
+
+    console.log('done ', response)
+        // this.setState({
+    //     currentStudent_id : selectedStudentId,
+    //     tasks : tasks,
+    // }  )
+
   }
-
 
   render() {
       return (

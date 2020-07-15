@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 
-const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/13/';
+// const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/13/';
 const new_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
 
@@ -15,27 +15,11 @@ class Home extends React.Component {
     this.state = {
         courses: props.tasks
     }
-    // this.courseCreateHandler = this.courseCreateHandler.bind(this);
+  
 }
  
 
-  // async courseCreateHandler(course) {
-
-  //     const response = await axios.post(url, course);
-
-  //     // decision: add the newly created to state or fetch brand new
-  //     // let's go with option 1
-  //     const savedCourse = response.data;
-
-  //     const updatedtasks = this.state.tasks.concat(savedCourse);
-
-  //     this.setState({
-  //         tasks: updatedtasks
-  //     })
-
-  //     // Stretch: how can you make even snappier?
-  // }
-
+  
   render() {
       return (
           <div className="container">
@@ -83,7 +67,9 @@ export async function getServerSideProps() {
   // console.log('tasks', tasks)
   
   // update
-  // const response = await axios.put(upd_url, upd_data);
+  const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
+  const response = await axios.put(upd_url, upd_data);
+  // const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/13/';
 
 
   // // new

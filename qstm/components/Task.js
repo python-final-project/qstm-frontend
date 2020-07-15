@@ -26,13 +26,3 @@ export default function Task(props) {
       </>
     )
 }
-
-// http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=1
-
-{/* <li key={props.course.id}>
-<Link href="/courses/[id]" as={`/courses/${props.course.id}`}>
-    <a>
-        {props.course.title}
-    </a>
-</Link>
-</li> */}
