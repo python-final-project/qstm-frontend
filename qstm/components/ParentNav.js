@@ -1,3 +1,6 @@
+import Link from 'next/link'
+
+
 function Nav(props) {
 
     // function getStyle(page) {
@@ -13,21 +16,15 @@ function Nav(props) {
         <nav>
             <ul>
                 <li>
-                    <Link href="/">
+                    <Link href="/parent_profile/1">
                         {/* <a className={getStyle("home")}>Home</a> */}
-                        <a>Home</a>
+                        <a>My Account Settings</a>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/about">
+                    <Link href="/parent_dashboard/1">
                         {/* <a className={getStyle("about")}>About Us</a> */}
-                        <a>About Us</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/roster">
-                        {/* <a className={getStyle("roster")}>Roster</a> */}
-                        <a>Roster</a>
+                        <a>DashBoard</a>
                     </Link>
                 </li>
             </ul>

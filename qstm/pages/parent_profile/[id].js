@@ -2,6 +2,7 @@ import React from 'react';
 import SiteForm from '../../components/SiteForm';
 import PassForm from '../../components/PassForm';
 import SiteList from '../../components/SiteList';
+import ParentNav from '../../components/ParentNav';
 // import ManageSites from '../../components/ManageSites';
 import { getSitesByStudentId } from '../../utils/studentSites';
 import axios from 'axios';
@@ -92,6 +93,7 @@ export default class ParentProfile extends React.Component {
 
         return (
             <>
+                <ParentNav />
                 <h1>My Account Setting Page</h1>
 
                 <hr/>
