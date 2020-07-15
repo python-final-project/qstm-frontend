@@ -1,20 +1,13 @@
-import { useRouter } from 'next/router'
-import { withRouter } from 'next/router'
 import Router from 'next/router'
 
 import axios from 'axios'
 import React from 'react'
-
-// const url = 'https://ileal-summer-camp-api.herokuapp.com/api/v1/courses/';
-// const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
 
 
 
 export default class TaskForm extends React.Component {
   constructor(props) {
-
-
     super(props)
     this.state = {
       id              : this.props.task.id ,
@@ -28,22 +21,10 @@ export default class TaskForm extends React.Component {
       student_id      : this.props.task.student_id,
     }
 
-      // const router = withRouter();
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
-      //// UPDATE PART
-      // async function updateHandler() {        
-      //   const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
-      //   const response = await axios.put(upd_url, this.state);
-      //   const router = useRouter();
-      //   router.push('/');
 
-        // const url = 'https://drf-snacks-api.herokuapp.com/api/v1/snacks/';
-        // const response = await axios.delete(url + props.snack.id)
-
-      // }
-      // const new_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
       
   }
 
@@ -106,30 +87,14 @@ export default class TaskForm extends React.Component {
   }
 
 
-
-  //  handleSubmit(event) {       
-  //     event.preventDefault();       
-  //     console.log('handlesubmit')
-  //     // i want to change the page and in that page make the API call
-  //     // plan b. can i call the API call here?
- 
-  // }
-
   async handleSubmit(event) {
     event.preventDefault(); 
-    console.log('handlesubmit', this.state)
-    // const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
-    // const tasks = await response.json();  
-    
+        
     const upd_url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
     const response = await axios.put(upd_url, this.state);
-
-    console.log('done ', response)
-        // this.setState({
-    //     currentStudent_id : selectedStudentId,
-    //     tasks : tasks,
-    // }  )
-
+    Router.push('/parent_dashboard/1');
+    
+  
   }
 
   render() {
@@ -140,12 +105,12 @@ export default class TaskForm extends React.Component {
               <br></br><br></br>
 
 
-              <label>  Class topic  </label>   <br></br>
-              <input name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
-              </input> <br></br> <br></br>
-
               <label>  Description  </label>   <br></br>
               <input name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
+              </input> <br></br> <br></br>
+
+              <label>  Class topic  </label>   <br></br>
+              <input name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
               </input> <br></br> <br></br>
 
               <label>  Due date  </label>   <br></br>
