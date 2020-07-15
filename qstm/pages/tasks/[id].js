@@ -124,7 +124,7 @@ export default class TaskForm extends React.Component {
               
               <br></br>
               <br></br>
-              <button>Add</button>
+              <button>Update</button>
           </form>
       )
   }

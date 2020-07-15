@@ -3,7 +3,7 @@ import React from 'react'
 export default class TaskForm extends React.Component {
     constructor(props) {
       const due_date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
-
+      
       super(props)
 
       this.state = {
