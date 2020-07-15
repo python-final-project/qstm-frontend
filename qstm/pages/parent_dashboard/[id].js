@@ -41,7 +41,7 @@ export default class ParentDashboard extends React.Component {
         currentStudent_id : selectedStudentId,
         tasks : tasks,
     }  )
-    console.log('tasks', tasks)
+    // console.log('tasks', tasks)
   }
 
   render(){      

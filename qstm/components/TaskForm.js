@@ -4,6 +4,7 @@ export default class TaskForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+          student_id : this.props.student_id,
           description : '',
           class_topic : '',
           due_date: '', 
@@ -49,6 +50,7 @@ export default class TaskForm extends React.Component {
         event.preventDefault();        
         this.props.onTaskCreate(this.state);
         this.setState({
+          // student_id : '',
           description:'',
           class_topic:'',
           due_date: '',

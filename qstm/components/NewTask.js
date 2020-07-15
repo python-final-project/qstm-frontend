@@ -14,8 +14,8 @@ class NewTask extends React.Component {
         this.taskCreateHandler = this.taskCreateHandler.bind(this);
     }
 
-    async taskCreateHandler(tasks) {
-      alert("hi")
+    async taskCreateHandler(tasks) {   
+      console.log(tasks)
         // const response = await axios.post(url, tasks);
 
         // decision: add the newly created to state or fetch brand new
@@ -35,7 +35,7 @@ class NewTask extends React.Component {
             <div className="container">             
                 <h4>Add New task for this student {this.props.student_id} </h4>
                 
-                <TaskForm onTaskCreate={this.taskCreateHandler} />
+                <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.state.student_id} />
    
             </div>
         )
