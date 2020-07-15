@@ -51,7 +51,7 @@ export default class SiteForm extends React.Component {
           <br></br>
 
           <label>Site Password:</label>
-          <input type="text" name="password" value={this.state.password} onChange={this.handleChange}></input>
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
           <br></br>
 
           <label>Class Topic // Site Name:</label>

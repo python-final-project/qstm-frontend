@@ -13,6 +13,7 @@ export default class ParentProfile extends React.Component {
     
         this.state = {
             activeStudent: -1,
+            activeParent: props.activeParent,
             showPassForm: false,
             showSiteForm: false,
             studentList: props.studentList,
@@ -75,14 +76,21 @@ export default class ParentProfile extends React.Component {
     }
 
     render() {
+
+        //for fun
+        let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+
         return (
             <>
                 <h1>My Account Setting Page</h1>
 
                 <hr/>
-    
 
-
+                <div>
+                    <h3 style={{color: randomColor}} >
+                        Welcome! {this.state.activeParent.name}!!!
+                    </h3>
+                </div>
 
                 <div>
                     <h3>
@@ -106,8 +114,8 @@ export default class ParentProfile extends React.Component {
                     
                     <hr/>
 
-                    <button onClick={() => this.setState({showSiteForm: true})}>
-                            Add New Site
+                    <button onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
+                            {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
                     </button>
                     
                     {this.state.showSiteForm ? this.showSiteForm() : null}
@@ -117,16 +125,28 @@ export default class ParentProfile extends React.Component {
     }
 }
 
-export async function getServerSideProps(context) {
+async function getData(url) {
     
-    const url = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
-
     const response = await fetch(url);
     const data = await response.json()
 
+    return data
+}
+
+
+export async function getServerSideProps(context) {
+    
+    const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
+    const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
+    const newStudentList = await getData(studentsUrl)
+    const newActiveParent = await getData(parentUrl)
+
+    console.log(newActiveParent)
+
     return {
         props: {
-            studentList: data,
+            studentList: newStudentList,
+            activeParent: newActiveParent,
         },
     }
 }
