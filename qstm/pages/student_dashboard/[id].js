@@ -3,7 +3,7 @@ import axios from 'axios';
 import Task from '../../components/Task';
 import NewTask from '../../components/NewTask';
 import ApiUrl from '../../constants/url';
-import StudentNav from '../../components/StudentNav';
+import StudentNav from '../../components/nav/StudentNav';
 
 
 export default class StudentDashboard extends React.Component {
