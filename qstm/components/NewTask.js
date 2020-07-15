@@ -14,8 +14,8 @@ class NewTask extends React.Component {
     }
 
     async taskCreateHandler(tasks) {   
-      console.log("now on newtask, this are the values to save:", tasks)
-        // const response = await axios.post(url, tasks);
+        console.log("now on newtask, this are the values to save:", tasks)
+        const response = await axios.post(url, tasks);
 
         // decision: add the newly created to state or fetch brand new
         // let's go with option 1
