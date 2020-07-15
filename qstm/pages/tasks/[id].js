@@ -1,5 +1,4 @@
 import Router from 'next/router'
-
 import axios from 'axios'
 import React from 'react'
 
@@ -23,6 +22,7 @@ export default class TaskForm extends React.Component {
 
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
 
 
       
@@ -88,20 +88,32 @@ export default class TaskForm extends React.Component {
 
 
   async handleSubmit(event) {
+    console.log('on handleSubmit', event)
     event.preventDefault(); 
         
     const upd_url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
     const response = await axios.put(upd_url, this.state);
     Router.push('/parent_dashboard/1');
     
-  
   }
+  
+  async handleDelete(event) {
+    console.log('on handleSubmit', event)
+    event.preventDefault(); 
+    
+   
+    const url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
+    const response = await axios.delete(url)
+    Router.push('/parent_dashboard/1');
+
+  }
+  
 
   render() {
       return (
-          <form onSubmit={this.handleSubmit}>
-              
-              <label>  Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
+        <div>
+          <form onSubmit={this.handleSubmit}>              
+              <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
               <br></br><br></br>
 
 
@@ -145,16 +157,20 @@ export default class TaskForm extends React.Component {
               </input> <br></br>
 
               <br></br>
-              <button>update</button>
-              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}
-              
+              <button>Update</button>
+              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}              
           </form>
+          <form onSubmit={this.handleDelete}>
+              <button>Delete</button>
+          </form>
+          
+          </div>
       )
   }
 }
 
 
-<span onClick={() => Router.push('/about')}>Click me</span>
+{/* <span onClick={() => Router.push('/about')}>Click me</span> */}
 
 
 

@@ -23,7 +23,6 @@ export default class ParentDashboard extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleCreateTask = this.handleCreateTask.bind(this)
-    // this.handleUpdateTask = this.handleUpdateTask.bind(this)
    
   }
 
