@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Task from '../../components/Task'
+import NewTask from '../../components/NewTask'
 
 
 const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
@@ -43,7 +44,6 @@ export default class ParentDashboard extends React.Component {
     console.log('tasks', tasks)
   }
 
-
   render(){      
     return <div>
       <h1>Parent's Dashboard </h1>
@@ -61,7 +61,8 @@ export default class ParentDashboard extends React.Component {
         <ol>
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
-
+        
+        <NewTask student_id={ this.state.currentStudent_id } />
         
       </div>
   }
