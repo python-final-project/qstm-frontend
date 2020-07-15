@@ -78,6 +78,7 @@ export default class ParentDashboard extends React.Component {
           width: auto;
           margin: auto;
           background-color: #4d597a;
+          display: grid;
           
         }
         h1 {
@@ -85,9 +86,6 @@ export default class ParentDashboard extends React.Component {
           text-align: center;
           // color: #33a7c9;
         }
-        // li {
-        //   float: left;
-        // }
         ol {
           color: #ff8a01;
         }
@@ -99,6 +97,12 @@ export default class ParentDashboard extends React.Component {
         }
         form {
           // float: left;
+        }
+        html {
+          background-color: #4d597a;
+        }
+        select {
+          width: 100px;
         }
       `}</style>  
       </div>

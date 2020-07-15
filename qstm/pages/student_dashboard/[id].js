@@ -55,6 +55,7 @@ export default class StudentDashboard extends React.Component {
 
     return (
     <>
+        <html style={{backgroundColor: '#4d597a'}}>
         <body>
         <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
@@ -66,10 +67,10 @@ export default class StudentDashboard extends React.Component {
         <h3>
             Welcome!! {this.state.activeStudent.name}!!!
         </h3>
-        <p> There are {this.state.tasks.length} tasks for you</p>
+        <p style={{align: 'center', textAlign: 'center'}}> There are {this.state.tasks.length} tasks for you</p>
 
         <hr />
-        <h3>
+        <h3 style={{align: 'left', textAlign: 'left'}}>
             Task List:
         </h3>
         <ol>
@@ -81,6 +82,7 @@ export default class StudentDashboard extends React.Component {
         <NewTask student_id={ this.state.activeStudent.id} onCreateTask={this.handleCreateTask}  />
 
       </body>
+      </html>
       <style jsx>{`
         body {
           // height: auto;
@@ -93,6 +95,11 @@ export default class StudentDashboard extends React.Component {
           align: center;
           text-align: center;
           // color: #33a7c9;
+        }
+        h3 {
+          align: center;
+          text-align: center;
+          align-content: center;
         }
         ol {
           color: #ff8a01;

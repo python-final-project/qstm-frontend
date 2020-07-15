@@ -29,10 +29,19 @@ class NewTask extends React.Component {
     render() {
         return (
             <div className="container">             
-                <h4>Add New task for this student {this.props.student_id} </h4>
+                <h4 style={{textAlign:'center', align:'center'}}>Add New task for this student {this.props.student_id} </h4>
                 
                 <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.props.student_id}  />
-   
+            
+            <style jsx>{`
+                container {
+                    
+                }
+                html {
+                    background-color: #4d597a;
+                }
+            `}
+            </style>
             </div>
         )
     }
