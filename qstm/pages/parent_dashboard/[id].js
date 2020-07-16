@@ -69,6 +69,9 @@ export default class ParentDashboard extends React.Component {
 
   render(){      
     return <div>
+      <link rel="stylesheet"
+          href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
+      <html style={{backgroundColor: '#4d597a'}}>
       <h1>Parent's Dashboard </h1>
 
       <label> View tasks for :   </label>
@@ -84,8 +87,43 @@ export default class ParentDashboard extends React.Component {
         <ol>
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
-        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}   />
-        
+
+        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}  />
+        </html>
+        <style jsx>{`
+        div {
+          height: auto;
+          width: auto;
+          margin: auto;
+          background-color: #4d597a;
+          display: grid;
+          
+        }
+        h1 {
+          align: center;
+          text-align: center;
+          // color: #33a7c9;
+        }
+        ol {
+          color: #ff8a01;
+        }
+        label {
+          color: #ff8a01;
+        }
+        p {
+          color: #ff8a01;
+        }
+        form {
+          // float: left;
+        }
+        html {
+          background-color: #4d597a;
+        }
+        select {
+          width: 100px;
+        }
+      `}</style>  
+
       </div>
   }
 }

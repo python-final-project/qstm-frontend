@@ -111,10 +111,23 @@ export default class TaskForm extends React.Component {
 
   render() {
       return (
+
+        <html style={{backgroundColor: '#4d597a'}}>
+        <body style={{backgroundColor: '#4d597a', height: '100%'}}>
+          <link rel="stylesheet"
+          href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
+          <h1 style={{align: 'center', textAlign: 'center'}} >Task</h1>
+          <form onSubmit={this.handleSubmit}>
+              <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
+              <input
+                  name="student_id" id="student_id" value={this.props.student_id} >
+              </input> <br></br>
+
         <div>
           <form onSubmit={this.handleSubmit}>              
               <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
               <br></br><br></br>
+
 
 
               <label>  Description  </label>   <br></br>
@@ -158,6 +171,38 @@ export default class TaskForm extends React.Component {
 
               <br></br>
               <button>Update</button>
+
+              <style jsx> {`
+                h1 {
+                  align: center;
+                  text-align: center;
+                }
+                form {
+                  background-color: #4d597a;
+                  height: auto;
+                  width: auto;
+                  margin: auto;
+                }
+                label {
+                  color: #ff8a01;
+                }
+                body {
+                  background-color:#4d597a;
+                  height: 100%;
+                  width: auto;
+                  margin: auto;
+
+                }
+                html {
+                  height: 100%;
+                  background-color:#4d597a;
+                }
+              `}
+              </style>
+          </form>
+          </body>
+          </html>
+
               {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}              
           </form>
           <form onSubmit={this.handleDelete}>
@@ -165,6 +210,7 @@ export default class TaskForm extends React.Component {
           </form>
           
           </div>
+
       )
   }
 }
