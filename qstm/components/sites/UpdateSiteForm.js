@@ -4,10 +4,10 @@ export default class UpdateSiteForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        url: '',
-        account: '',
-        password: '',
-        class_topic: '',
+        url: this.props.site.url,
+        account: this.props.site.account,
+        password: this.props.site.password,
+        class_topic: this.props.site.class_topic,
       }
   
       this.handleChange = this.handleChange.bind(this);
@@ -16,10 +16,6 @@ export default class UpdateSiteForm extends React.Component {
     }
   
     handleChange(event) {
-      // console.log(this.state['url'])
-      // let newState = {}
-      // newState[event.target.name] = event.target.value
-      // this.setState(newState)
       this.setState({
         [event.target.name]: event.target.value
       })
@@ -28,19 +24,22 @@ export default class UpdateSiteForm extends React.Component {
     handleSubmit(event) {
       event.preventDefault();
       
+      let id = this.props.site.id
+
       let siteInfo = {
+        student_id: this.props.site.student_id,
         url: this.state.url,
         account: this.state.account,
         password: this.state.password,
         class_topic: this.state.class_topic,
       }
 
-      this.props.onSubmit(siteInfo)
+      this.props.handleSiteUpdate(siteInfo, id)
     }
     
     render() {
       return (
-        <form id="site-form" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
 
           <label>Site URL:</label>
           <input type="text" name="url" value={this.state.url} onChange={this.handleChange}></input>
@@ -51,14 +50,14 @@ export default class UpdateSiteForm extends React.Component {
           <br></br>
 
           <label>Site Password:</label>
-          <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
+          <input type="text" name="password" value={this.state.password} onChange={this.handleChange}></input>
           <br></br>
 
           <label>Class Topic // Site Name:</label>
           <input type="text" name="class_topic" value={this.state.class_topic} onChange={this.handleChange}></input>
           <br></br>
 
-          <button type="submit"> Add Site </button>
+          <button type="submit"> Update </button>
         </form>
       )
     }
