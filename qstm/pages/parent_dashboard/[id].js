@@ -113,7 +113,12 @@ export default class ParentDashboard extends React.Component {
                 {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
               </ol>
 
-              <button onClick={this.toggleShowAddTasksForm}>Add task</button>
+              <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
+
+
+              {/* <button onClick={() => this.setState({showAddTasksForm: !this.state.showAddTasksForm})}>
+                            {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
+                    </button> */}
 
               <div>
                 { this.state.showAddTasksForm && (
@@ -126,11 +131,6 @@ export default class ParentDashboard extends React.Component {
         </div>
       )}
    
-
-
-   
-      
-
        
         </html>
         <style jsx>{`
@@ -166,7 +166,7 @@ export default class ParentDashboard extends React.Component {
           width: 100px;
         }
         button {
-          width: 100px;
+          width: 130px;
         }
       `}</style>  
 
