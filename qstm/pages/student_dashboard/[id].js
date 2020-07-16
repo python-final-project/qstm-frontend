@@ -90,16 +90,11 @@ export default class StudentDashboard extends React.Component {
       </html>
       <style jsx>{`
         body {
-          // height: auto;
-          width: auto;
-          margin: auto;
           background-color: #4d597a;
-          
         }
         h1 {
           align: center;
           text-align: center;
-          // color: #33a7c9;
         }
         h3 {
           align: center;
