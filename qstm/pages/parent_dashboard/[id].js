@@ -3,17 +3,17 @@ import axios from 'axios'
 import Router from 'next/router'
 import Link from 'next/link'
 
-
 import ParentNav from '../../components/nav/ParentNav';
+import ApiUrl from '../../constants/url';
 
 import Task from '../../components/tasks/Task'
 import NewTask from '../../components/tasks/NewTask'
 
 
 
-const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
-const students_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/'
-const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/'
+// const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
+// const students_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/'
+// const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/'
 
 
 export default class ParentDashboard extends React.Component {
@@ -157,28 +157,33 @@ export default class ParentDashboard extends React.Component {
   }
 }
 
+
+
+
+async function getData(url) {
+    
+  const response = await fetch(url);
+  const data = await response.json()
+
+  return data
+}
+
+
 export async function getServerSideProps(context) {
- 
+  const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
+  const newActiveParent = await getData(parentUrl)
 
-  const responseParent = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/${context.params.id}/`);
-  const activeParent = await responseParent.json();  
+  const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
+  const newStudentList = await getData(studentsUrl)
 
-
-  // console.log('context is: ', context)
-  const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/?parent_id=${context.params.id}`);
-  const students = await response.json();  
-  console.log('students', students)
-  // console.log("test", students[0].id)
-
-  const responseTasks = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${students[0].id}`);
-  const tasks = await responseTasks.json();  
-  // console.log('tasks', tasks)
+  const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${newStudentList[0].id}`
+  const newTasksList = await getData(tasksUrl)
 
   return {
       props: {
-        activeParent: activeParent,
-        students : students,
-        tasks : tasks,
+        activeParent: newActiveParent,
+        students : newStudentList,
+        tasks : newTasksList,
       }
   }
 }
