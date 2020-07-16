@@ -92,9 +92,9 @@ export default class TaskForm extends React.Component {
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${this.state.id}/`
     const response = await axios.put(tasksUrl, this.state);
     
-    // TODO: re direct to the right place
-    Router.push('/parent_dashboard/1');
-    
+    const dashboard = localStorage.getItem('dashboard')
+    Router.push(dashboard);
+   
   }
   
   async handleDelete(event) {    
@@ -102,8 +102,9 @@ export default class TaskForm extends React.Component {
    
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${this.state.id}/`
     const response = await axios.delete(tasksUrl)
-    Router.push('/parent_dashboard/1');
-    // TODO: re direct to the right place
+    
+    const dashboard = localStorage.getItem('dashboard')
+    Router.push(dashboard);
   }
   
   // TODO: ADD NAV
@@ -217,6 +218,7 @@ async function getData(url) {
 }
 
 export async function getServerSideProps(context) {
+  // need to know who called me, and the userid
 
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${context.params.id}`
     const newTasksList = await getData(tasksUrl)

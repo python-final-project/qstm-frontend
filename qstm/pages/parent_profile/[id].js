@@ -153,7 +153,7 @@ export default class ParentProfile extends React.Component {
 }
 
 export async function getServerSideProps(context) {
-    
+ 
     const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
     const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
     const newStudentList = await basicFetch(studentsUrl)

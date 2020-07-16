@@ -20,6 +20,7 @@ export default class ParentDashboard extends React.Component {
       currentStudent_name : props.students[0].name,
       activeParent        : props.activeParent, 
       showAddTasksForm    : false,
+      showTaskInfo        : props.showTaskInfo, 
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleCreateTask = this.handleCreateTask.bind(this)
@@ -79,39 +80,72 @@ export default class ParentDashboard extends React.Component {
 
       <h1>{this.state.activeParent.name}'s Dashboard </h1>
 
-      <label> View tasks for :   </label>
 
-      <select onChange={this.handleChange}>
-      {this.state.students.map(student =>         
-        <option key={student.id} value={student.id} > {student.name} </option>
-      )}         
-      </select>
-      <br></br>  <br></br>
-   
-      <Link href={`/task_history/${this.state.currentStudent_id}`}>
-          <a>View {this.state.currentStudent_name}'s tasks history </a>
-      </Link>
+      { !this.state.showTaskInfo && (
+        <div>
+          <br></br>
+          <h4> {this.props.activeParent.name}, you don't have students registred yet.... </h4>
+        </div>
+      )}
 
-      <br></br>  <br></br>
-      <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
-
-        <ol>
-          {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
-        </ol>
 
         <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}>Add task</button>
 
-        <div>
-          { this.state.showAddTasksForm && (
-             <NewTask student_id={ this.state.currentStudent_id} 
-              student_name ={this.state.currentStudent_name}
-              onCreateTask={this.handleCreateTask}  />
-          )}
-        </div>
+      {/* only if the parent have students, will see this */}
+      { this.state.showTaskInfo && (
 
+
+        <div>
+            <label> View tasks for :   </label>
+
+            <select onChange={this.handleChange}>
+            {this.state.students.map(student =>         
+              <option key={student.id} value={student.id} > {student.name} </option>
+            )}         
+            </select>
+            <br></br>  <br></br>
+
+
+            <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
+            <div>
+              { this.state.showAddTasksForm && (
+                <NewTask student_id={ this.state.currentStudent_id} 
+                  student_name ={this.state.currentStudent_name}
+                  onCreateTask={this.handleCreateTask}  />
+              )}
+            </div>
+
+            <br></br>  <br></br>
+            <Link href={`/task_history/${this.state.currentStudent_id}`}>
+                <a>View {this.state.currentStudent_name}'s tasks history </a>
+            </Link>
+
+            <br></br>  <br></br>
+            <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
+
+              <ol>
+                {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
+              </ol>
+
+              {/* <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
+
+              <div>
+                { this.state.showAddTasksForm && (
+                  <NewTask student_id={ this.state.currentStudent_id} 
+                    student_name ={this.state.currentStudent_name}
+                    onCreateTask={this.handleCreateTask}  />
+                )}
+              </div> */}
+
+        </div>
+      )}
+   
        
         </html>
         <style jsx>{`
+        body{
+          padding-left: 50px;
+        }
         div {
           height: auto;
           width: auto;
@@ -141,8 +175,10 @@ export default class ParentDashboard extends React.Component {
           width: 100px;
         }
         button {
+
           backgroundColor:'#152459';
           color:'#ff8a01';
+          width: 130px;
         }
       `}</style>  
 
@@ -162,20 +198,40 @@ async function getData(url) {
 
 
 export async function getServerSideProps(context) {
+  let newsShowTaskInfo = true
+
   const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
   const newActiveParent = await getData(parentUrl)
 
   const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
-  const newStudentList = await getData(studentsUrl)
+  let newStudentList = await getData(studentsUrl)
 
-  const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${newStudentList[0].id}`
-  const newTasksList = await getData(tasksUrl)
+  
+  let newTasksList = []
 
+  console.log('newTasksList',newTasksList)
+  if (newStudentList.length > 0) {
+    const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${newStudentList[0].id}`
+    newTasksList = await getData(tasksUrl)
+  }
+  else{
+    newsShowTaskInfo = false
+    newStudentList = [{
+      "id": -1,
+      "name": "---",
+      "user_id": -1,
+      "parent_id": -1
+  },]
+  }
+  
+  console.log('newTasksList',newTasksList)
+  
   return {
       props: {
         activeParent  : newActiveParent,
         students      : newStudentList,
         tasks         : newTasksList,
+        showTaskInfo  : newsShowTaskInfo, 
       }
   }
 }

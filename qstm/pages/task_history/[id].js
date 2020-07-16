@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import ApiUrl from '../../constants/url';
 import ParentNav from '../../components/nav/ParentNav';
+import StudentNav from '../../components/nav/StudentNav';
 import Task from '../../components/tasks/Task'
 
 
@@ -21,11 +22,46 @@ export default class TaskHistory extends React.Component {
       currentStudent_id   : props.students.id,
       currentStudent_name : props.students.name,
       activeParent        : props.activeParent, 
+      isParent            : false,
+      dashboard                : '',
        }
    }
 
+   componentDidMount() {
+
+    let isParent = localStorage.getItem('isParent')
+    let dashboard = localStorage.getItem('dashboard')
+    
+    if (isParent == 'true'){
+      isParent = true
+    } else {
+      isParent = false
+    }
+
+     this.setState({
+       isParent: isParent,
+       dashboard: dashboard,
+     })
+   }
 
 
+   isParent() {
+    if (this.state.isParent) {
+      return (
+        <ParentNav id={this.state.activeParent.id} />
+      )
+    } else {
+      return (
+        <StudentNav id={this.state.currentStudent}/>
+      )
+    }
+   }
+
+
+  getDashboard()
+  {
+    // return "lkdjflld"
+  }
 
   render(){      
     return <div>
@@ -33,12 +69,14 @@ export default class TaskHistory extends React.Component {
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
       <html style={{backgroundColor: '#4d597a'}}>
 
-        <ParentNav id={this.state.activeParent.id} />
+
+        {this.isParent()}
+        
 
         <h5> History of { this.state.currentStudent_name }'s tasks :   </h5>
         <br></br>  <br></br>
 
-        <Link href={`/parent_dashboard/${this.state.activeParent.id}`}>
+        <Link href={this.state.dashboard}>
           <a>Return</a>
         </Link>
         <br></br>  <br></br>
@@ -105,6 +143,7 @@ export async function getServerSideProps(context) {
   const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${newStudentList.parent_id}/`
   const newActiveParent = await getData(parentUrl)
 
+  
   return {
       props: {
         activeParent: newActiveParent,

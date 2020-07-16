@@ -74,6 +74,15 @@ export default class StudentDashboard extends React.Component {
         </h3>
         <p style={{align: 'center', textAlign: 'center'}}> There are {this.state.tasks.length} tasks for you</p>
 
+        <br></br>  <br></br>
+            <Link href={`/task_history/${this.state.activeStudent.id}`}>
+                <a>View {this.state.activeStudent.name}'s tasks history </a>
+            </Link>
+
+            <br></br>  <br></br>
+
+
+
         <hr />
         <h3 style={{align: 'left', textAlign: 'left'}}>
             Task List:
