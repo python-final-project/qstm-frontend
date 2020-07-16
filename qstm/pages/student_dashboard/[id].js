@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import Task from '../../components/Task';
-import NewTask from '../../components/NewTask';
+import Link from 'next/link'
+
+import Task from '../../components/tasks/Task'
+import NewTask from '../../components/tasks/NewTask';
+
+
 import ApiUrl from '../../constants/url';
 import StudentNav from '../../components/nav/StudentNav';
 

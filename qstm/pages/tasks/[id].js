@@ -2,7 +2,8 @@ import Router from 'next/router'
 import axios from 'axios'
 import React from 'react'
 
-
+import ApiUrl from '../../constants/url';
+import ParentNav from '../../components/nav/ParentNav';
 
 
 export default class TaskForm extends React.Component {
@@ -23,8 +24,6 @@ export default class TaskForm extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
-
-
       
   }
 
@@ -88,26 +87,26 @@ export default class TaskForm extends React.Component {
 
 
   async handleSubmit(event) {
-    console.log('on handleSubmit', event)
     event.preventDefault(); 
-        
-    const upd_url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
-    const response = await axios.put(upd_url, this.state);
+    
+    const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${this.state.id}/`
+    const response = await axios.put(tasksUrl, this.state);
+    
+    // TODO: re direct to the right place
     Router.push('/parent_dashboard/1');
     
   }
   
-  async handleDelete(event) {
-    console.log('on handleSubmit', event)
-    event.preventDefault(); 
-    
+  async handleDelete(event) {    
+    event.preventDefault();     
    
-    const url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
-    const response = await axios.delete(url)
+    const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${this.state.id}/`
+    const response = await axios.delete(tasksUrl)
     Router.push('/parent_dashboard/1');
-
+    // TODO: re direct to the right place
   }
   
+  // TODO: ADD NAV
 
   render() {
       return (
@@ -117,18 +116,10 @@ export default class TaskForm extends React.Component {
           <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
           <h1 style={{align: 'center', textAlign: 'center'}} >Task</h1>
-          <form onSubmit={this.handleSubmit}>
-              <label style={{color: '#ff8a01'}}> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
-              <input
-                  name="student_id" id="student_id" value={this.props.student_id} >
-              </input> <br></br>
-
         <div>
           <form onSubmit={this.handleSubmit}>              
               <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
               <br></br><br></br>
-
-
 
               <label>  Description  </label>   <br></br>
               <input name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
@@ -161,13 +152,12 @@ export default class TaskForm extends React.Component {
               <br></br><br></br>
 
 
-              <label> id:</label>
-              <input name="id" id="id" value={this.state.id} >
-              </input> <br></br>
-              <label> student_id:</label>
-              <input
-                  name="student_id" id="student_id" value={this.state.student_id} >
-              </input> <br></br>
+              <input  
+                name="id" id="id" value={this.state.id} type="hidden">  
+              </input>
+              <input 
+              name="student_id" id="student_id" value={this.state.student_id} type="hidden"> 
+              </input> 
 
               <br></br>
               <button style={{backgroundColor:'#152459', color:'#ff8a01'}}>Update</button>
@@ -207,7 +197,7 @@ export default class TaskForm extends React.Component {
           </form>
           
           </div>
-          </form>
+
           </body>
           
           </html>
@@ -219,16 +209,21 @@ export default class TaskForm extends React.Component {
 
 {/* <span onClick={() => Router.push('/about')}>Click me</span> */}
 
+async function getData(url) {    
+  const response = await fetch(url);
+  const data = await response.json()
 
+  return data
+}
 
 export async function getServerSideProps(context) {
-    // console.log('entering getServerSideProps....:',context.params.id)
-    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${context.params.id}`);
-    const task = await response.json();
-    // console.log('task',task)
+
+    const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `${context.params.id}`
+    const newTasksList = await getData(tasksUrl)
+    
     return {
         props: {
-          task: task,
+          task: newTasksList,
         }
     }
 }

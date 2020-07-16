@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import TaskForm from '../components/TaskForm'
+import TaskForm from './TaskForm'
+
+
 
 const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
@@ -8,7 +10,8 @@ class NewTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          student_id: props.student_id,
+          student_id    : props.student_id,
+          student_name  : props.student_name,
         }
         this.taskCreateHandler = this.taskCreateHandler.bind(this);
        
@@ -29,7 +32,7 @@ class NewTask extends React.Component {
     render() {
         return (
             <div className="container">             
-                <h4 style={{textAlign:'center', align:'center'}}>Add New task for this student {this.props.student_id} </h4>
+                <h4 style={{textAlign:'center', align:'center'}}>Add New task for {this.props.student_name} </h4>
                 
                 <TaskForm onTaskCreate={this.taskCreateHandler} student_id = { this.props.student_id}  />
             
