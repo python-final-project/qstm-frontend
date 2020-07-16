@@ -6,9 +6,21 @@ export default class Home extends React.Component{
             <div>
                 <h1>Jesse Pena</h1>
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>
+                        Full Stack Software Developer
+                    </li>
+                    <li>
+                        4 years in the Army as a medic
+                    </li>
+                    <li>
+                        The Evergreen State College - ecology and environmental studies
+                    </li>
+                    <li>
+                        Worked as a consulting utility forester in southern California
+                    </li>
+                    <li>
+                        Big change - Trying to start a career in software development
+                    </li>
                 </ul>
             </div>
         )
