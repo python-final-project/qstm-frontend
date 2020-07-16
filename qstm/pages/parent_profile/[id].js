@@ -1,11 +1,12 @@
 import React from 'react';
+import axios from 'axios';
+
 import SiteForm from '../../components/sites/SiteForm';
 import PassForm from '../../components/PassForm';
 import SiteList from '../../components/sites/SiteList';
 import ParentNav from '../../components/nav/ParentNav';
-
+import { basicFetch } from '../../utils/basicFetch';
 import { getSitesByStudentId } from '../../utils/studentSites';
-import axios from 'axios';
 import ApiUrl from '../../constants/url';
 
 
@@ -78,13 +79,16 @@ export default class ParentProfile extends React.Component {
     }
 
 
-    async handleSiteUpdate(siteInfo, id) {
+    async handleSiteUpdate(siteInfo, id, isUpdate) {
         const url = ApiUrl.BASE + ApiUrl.SITE + id + '/'
 
-        await axios.put(url, siteInfo)
+        if (isUpdate) {
+            await axios.put(url, siteInfo)
+        } else {
+            await axios.delete(url)
+        }
 
         let newSiteList = await getSitesByStudentId(this.state.activeStudent)
-
         this.setState({
             siteList: newSiteList,
         })
@@ -140,22 +144,12 @@ export default class ParentProfile extends React.Component {
     }
 }
 
-
-async function getData(url) {
-    
-    const response = await fetch(url);
-    const data = await response.json()
-
-    return data
-}
-
-
 export async function getServerSideProps(context) {
     
     const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
     const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${context.params.id}`
-    const newStudentList = await getData(studentsUrl)
-    const newActiveParent = await getData(parentUrl)
+    const newStudentList = await basicFetch(studentsUrl)
+    const newActiveParent = await basicFetch(parentUrl)
 
     return {
         props: {

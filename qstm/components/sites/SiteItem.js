@@ -1,6 +1,6 @@
 import React from 'react';
+
 import UpdateSiteForm from './UpdateSiteForm';
-import PassForm from '../PassForm';
 
 export default class SiteItem extends React.Component {
 
@@ -11,23 +11,32 @@ export default class SiteItem extends React.Component {
             showForm: false,
         }
 
-        this.handleChange = this.handleChange.bind(this)
-    }
+        this.toggleForm = this.toggleForm.bind(this)
+        this.handleForm = this.handleForm.bind(this)
 
-    handleChange() {
+    }
+    
+    toggleForm() {
+        
+        
         this.setState({
             showForm: !this.state.showForm,
         })
+    }
+
+    handleForm(siteInfo, id, isUpdate) {
+        this.toggleForm()
+        this.props.handleSiteUpdate(siteInfo, id, isUpdate)
     }
 
     render() {
         return (
             <li>
                 {this.props.list.class_topic}
-                <button value={this.props.indexOf} onClick={this.handleChange}>View</button>
+                <button value={this.props.indexOf} onClick={this.toggleForm}>View</button>
 
                 <div style={this.state.showForm ? {} : {display: 'none'}}>
-                    <UpdateSiteForm site={this.props.list} handleSiteUpdate={this.props.handleSiteUpdate} />
+                    <UpdateSiteForm site={this.props.list} handleSiteUpdate={this.handleForm} />
                 </div>
 
             </li>

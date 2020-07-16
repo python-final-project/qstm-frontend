@@ -23,8 +23,9 @@ export default class UpdateSiteForm extends React.Component {
     
     handleSubmit(event) {
       event.preventDefault();
-      
+
       let id = this.props.site.id
+      let isUpdate = (event.target.value == "Update")
 
       let siteInfo = {
         student_id: this.props.site.student_id,
@@ -34,13 +35,13 @@ export default class UpdateSiteForm extends React.Component {
         class_topic: this.state.class_topic,
       }
 
-      this.props.handleSiteUpdate(siteInfo, id)
+      this.props.handleSiteUpdate(siteInfo, id, isUpdate)
     }
     
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-
+        
+        <div>
           <label>Site URL:</label>
           <input type="text" name="url" value={this.state.url} onChange={this.handleChange}></input>
           <br></br>
@@ -57,8 +58,9 @@ export default class UpdateSiteForm extends React.Component {
           <input type="text" name="class_topic" value={this.state.class_topic} onChange={this.handleChange}></input>
           <br></br>
 
-          <button type="submit"> Update </button>
-        </form>
+          <button type="button" onClick={this.handleSubmit} value="Update"> Update </button>
+          <button type="button" onClick={this.handleSubmit} value="Delete"> Delete </button>
+        </div>
       )
     }
   } 
