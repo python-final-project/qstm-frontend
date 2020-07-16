@@ -15,8 +15,9 @@ export default class StudentDashboard extends React.Component {
     super(props)
     this.state = {
 
-        activeStudent: props.activeStudent,
-        tasks : props.tasks, 
+        activeStudent       : props.activeStudent,
+        tasks               : props.tasks, 
+        showAddTasksForm    : false,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -27,7 +28,6 @@ export default class StudentDashboard extends React.Component {
   async handleChange(event) {
     const selectedStudentId = event.target.value
  
-    // TODO: ADD completed=false to the query
     const url = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${event.target.value}&completed=false`
     const tasks = await getData(url)
 
@@ -43,14 +43,21 @@ export default class StudentDashboard extends React.Component {
     // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
     // the child can call it BS is send as a prop in <NewTask....
     // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
-
+    const newShowAddTasks = false
     const newTasks = this.state.tasks.concat(task)
     this.setState({
       tasks : newTasks,
+      showAddTasksForm  : newShowAddTasks,
     })
 
   }
 
+  toggleShowAddTasksForm =() => {
+    const newShowAddTasks = !this.state.showAddTasksForm
+    this.setState({
+      showAddTasksForm    : newShowAddTasks,
+    })
+  }
 
   render(){      
 
@@ -70,30 +77,39 @@ export default class StudentDashboard extends React.Component {
         <hr />
 
         <h3>
-            Welcome!! {this.state.activeStudent.name}!!!
+            Welcome {this.state.activeStudent.name}!!!
         </h3>
-        <p style={{align: 'center', textAlign: 'center'}}> There are {this.state.tasks.length} tasks for you</p>
 
         <br></br>  <br></br>
             <Link href={`/task_history/${this.state.activeStudent.id}`}>
                 <a>View {this.state.activeStudent.name}'s tasks history </a>
             </Link>
 
-            <br></br>  <br></br>
+        <br></br>  <br></br>
 
+
+
+        <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}> 
+            {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
+        </button>
+        <div>
+          { this.state.showAddTasksForm && (
+             <NewTask student_id={ this.state.activeStudent.id} 
+                    onCreateTask={this.handleCreateTask}  />
+          )}
+        </div>
 
 
         <hr />
         <h3 style={{align: 'left', textAlign: 'left'}}>
-            Task List:
+            This is your Task List:
         </h3>
         <ol>
-            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+            {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
         </ol>
 
         <hr />
 
-        <NewTask student_id={ this.state.activeStudent.id} onCreateTask={this.handleCreateTask}  />
 
       </body>
       </html>

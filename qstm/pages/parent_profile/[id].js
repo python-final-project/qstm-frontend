@@ -51,8 +51,6 @@ export default class ParentProfile extends React.Component {
         
         siteInfo.student_id = this.state.activeStudent
 
-        // const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/sites/' 
-
         const url = ApiUrl.BASE + ApiUrl.SITE
 
         await axios.post(url, siteInfo)

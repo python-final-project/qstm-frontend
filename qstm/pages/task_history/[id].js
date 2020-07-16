@@ -72,8 +72,8 @@ export default class TaskHistory extends React.Component {
 
         {this.isParent()}
         
-
-        <h5> History of { this.state.currentStudent_name }'s tasks :   </h5>
+        <br></br>  <br></br>
+        <h1> History of { this.state.currentStudent_name }'s tasks   </h1>
         <br></br>  <br></br>
 
         <Link href={this.state.dashboard}>

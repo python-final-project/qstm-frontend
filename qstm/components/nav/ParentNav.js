@@ -14,6 +14,7 @@ function Nav(props) {
     return (
         // <nav className={styles.nav}>
         <nav>
+            <br></br><br></br>
             <ul>
                 <li>
                     <Link href={`/parent_profile/${props.id}`}>
@@ -25,6 +26,11 @@ function Nav(props) {
                     <Link href={`/parent_dashboard/${props.id}`}>
                         {/* <a className={getStyle("about")}>About Us</a> */}
                         <a>DashBoard</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={`/`}>                        
+                        <a>Logout</a>
                     </Link>
                 </li>
             </ul>
