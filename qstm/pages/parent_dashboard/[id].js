@@ -71,7 +71,7 @@ export default class ParentDashboard extends React.Component {
 
       <ParentNav id={this.state.activeParent.id} />
 
-      <h1>Parent's Dashboard </h1>
+      <h1>{this.state.activeParent.name}'s Dashboard </h1>
 
       <label> View tasks for :   </label>
 
@@ -80,11 +80,12 @@ export default class ParentDashboard extends React.Component {
         <option key={student.id} value={student.id} > {student.name} </option>
       )}         
       </select>
-      
-      <p> There are {this.state.tasks.length} tasks for {this.state.currentStudent_name}</p>
+      <br></br>  <br></br>
+      <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
    
         <ol>
-            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+          {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
+            {/* {this.state.tasks.map(task => <Task key={task.id} task={task} />)} */}
         </ol>
 
         <NewTask student_id={ this.state.currentStudent_id} 
