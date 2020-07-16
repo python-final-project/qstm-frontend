@@ -26,6 +26,10 @@ export default class TaskHistory extends React.Component {
 
 
 
+  getDashboard()
+  {
+    // return "lkdjflld"
+  }
 
   render(){      
     return <div>
@@ -39,6 +43,7 @@ export default class TaskHistory extends React.Component {
         <br></br>  <br></br>
 
         <Link href={`/parent_dashboard/${this.state.activeParent.id}`}>
+        {/* <Link href={()=>(alert('hir')) }> */}
           <a>Return</a>
         </Link>
         <br></br>  <br></br>
@@ -105,6 +110,7 @@ export async function getServerSideProps(context) {
   const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${newStudentList.parent_id}/`
   const newActiveParent = await getData(parentUrl)
 
+  
   return {
       props: {
         activeParent: newActiveParent,

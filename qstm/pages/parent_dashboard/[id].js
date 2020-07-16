@@ -92,7 +92,6 @@ export default class ParentDashboard extends React.Component {
       { this.state.showTaskInfo && (
 
         <div>
-            <label>show</label>
             <label> View tasks for :   </label>
 
             <select onChange={this.handleChange}>
@@ -102,6 +101,17 @@ export default class ParentDashboard extends React.Component {
             </select>
             <br></br>  <br></br>
 
+
+            <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
+            <div>
+              { this.state.showAddTasksForm && (
+                <NewTask student_id={ this.state.currentStudent_id} 
+                  student_name ={this.state.currentStudent_name}
+                  onCreateTask={this.handleCreateTask}  />
+              )}
+            </div>
+
+            <br></br>  <br></br>
             <Link href={`/task_history/${this.state.currentStudent_id}`}>
                 <a>View {this.state.currentStudent_name}'s tasks history </a>
             </Link>
@@ -113,12 +123,7 @@ export default class ParentDashboard extends React.Component {
                 {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
               </ol>
 
-              <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
-
-
-              {/* <button onClick={() => this.setState({showAddTasksForm: !this.state.showAddTasksForm})}>
-                            {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
-                    </button> */}
+              {/* <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
 
               <div>
                 { this.state.showAddTasksForm && (
@@ -126,7 +131,7 @@ export default class ParentDashboard extends React.Component {
                     student_name ={this.state.currentStudent_name}
                     onCreateTask={this.handleCreateTask}  />
                 )}
-              </div>
+              </div> */}
 
         </div>
       )}
@@ -134,6 +139,9 @@ export default class ParentDashboard extends React.Component {
        
         </html>
         <style jsx>{`
+        body{
+          padding-left: 50px;
+        }
         div {
           height: auto;
           width: auto;
@@ -194,7 +202,6 @@ export async function getServerSideProps(context) {
   const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?parent_id=${context.params.id}`
   let newStudentList = await getData(studentsUrl)
 
-  console.log('newStudentList.length', newStudentList.length)
   
   let newTasksList = []
 
