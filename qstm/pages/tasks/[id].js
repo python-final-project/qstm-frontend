@@ -200,16 +200,17 @@ export default class TaskForm extends React.Component {
               `}
               </style>
           </form>
-          </body>
-          </html>
+          
 
-              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}              
-          </form>
           <form onSubmit={this.handleDelete}>
               <button>Delete</button>
           </form>
           
           </div>
+          </form>
+          </body>
+          
+          </html>
 
       )
   }
