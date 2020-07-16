@@ -25,6 +25,7 @@ export default class ParentProfile extends React.Component {
 
         this.handleStudentChange = this.handleStudentChange.bind(this)
         this.siteSubmitHandler = this.siteSubmitHandler.bind(this)
+        this.handleSiteUpdate = this.handleSiteUpdate.bind(this)
     }
 
 
@@ -37,8 +38,6 @@ export default class ParentProfile extends React.Component {
         if (studentId != -1) {
             sites = await getSitesByStudentId(studentId)
         }
-        
-
 
         this.setState({
             siteList: sites,
@@ -63,9 +62,7 @@ export default class ParentProfile extends React.Component {
             siteList: newSiteList,
             showSiteForm: false,
         })
-
     }
-
 
     showPassForm = () => {
         return (
@@ -81,16 +78,20 @@ export default class ParentProfile extends React.Component {
     }
 
 
-    showUpdateForm = () => {
-        console.log('it works!')
+    async handleSiteUpdate(siteInfo, id) {
+        const url = ApiUrl.BASE + ApiUrl.SITE + id + '/'
+
+        await axios.put(url, siteInfo)
+
+        let newSiteList = await getSitesByStudentId(this.state.activeStudent)
+
+        this.setState({
+            siteList: newSiteList,
+        })
     }
 
 
     render() {
-
-        //for fun
-        let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-
         return (
             <>
                 <ParentNav id={this.state.activeParent.id}/>
@@ -99,7 +100,7 @@ export default class ParentProfile extends React.Component {
                 <hr/>
 
                 <div>
-                    <h3 style={{color: randomColor}} >
+                    <h3>
                         Welcome! {this.state.activeParent.name}!!!
                     </h3>
                 </div>
@@ -123,7 +124,8 @@ export default class ParentProfile extends React.Component {
                     <h3>
                         Manage Site Information:
                     </h3>
-                        <SiteList sites={this.state.siteList} />
+
+                    <SiteList sites={this.state.siteList} handleSiteUpdate={this.handleSiteUpdate} />
                     
                     <hr/>
 

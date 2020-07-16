@@ -1,6 +1,5 @@
 import React from 'react';
 import SiteForm from '../../components/sites/SiteForm';
-import PassForm from '../../components/PassForm';
 import SiteList from '../../components/sites/SiteList';
 import StudentNav from '../../components/nav/StudentNav';
 import { getSitesByStudentId } from '../../utils/studentSites';
@@ -25,6 +24,7 @@ export default class StudentProfile extends React.Component {
 
         this.handleStudentChange = this.handleStudentChange.bind(this)
         this.siteSubmitHandler = this.siteSubmitHandler.bind(this)
+        this.handleSiteUpdate = this.handleSiteUpdate.bind(this)
     }
 
 
@@ -65,30 +65,26 @@ export default class StudentProfile extends React.Component {
     }
 
 
-    showPassForm = () => {
-        return (
-            <PassForm />
-        )
-    }
-
-
     showSiteForm = () => {
         return (
             <SiteForm onSubmit={this.siteSubmitHandler} />
         )
     }
 
+    async handleSiteUpdate(siteInfo, id) {
+        const url = ApiUrl.BASE + ApiUrl.SITE + id + '/'
 
-    showUpdateForm = () => {
-        console.log('it works!')
+        await axios.put(url, siteInfo)
+
+        let newSiteList = await getSitesByStudentId(this.state.activeStudent.id)
+
+        this.setState({
+            siteList: newSiteList,
+        })
     }
 
 
     render() {
-
-        //for fun
-        let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-
         return (
             <>
                 <StudentNav id={this.state.activeStudent.id}/>
@@ -97,25 +93,25 @@ export default class StudentProfile extends React.Component {
                 <hr/>
 
                 <div>
-                    <h3 style={{color: randomColor}} >
+                    <h3>
                         Welcome! {this.state.activeStudent.name}!!!
                     </h3>
                 </div>
 
                 <hr/>
 
-                    <h3>
-                        Manage Site Information:
-                    </h3>
-                        <SiteList sites={this.state.siteList} />
-                    
-                    <hr/>
+                <h3>
+                    Manage Site Information:
+                </h3>
+                    <SiteList sites={this.state.siteList} handleSiteUpdate={this.handleSiteUpdate}/>
+                
+                <hr/>
 
-                    <button onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
-                            {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
-                    </button>
-                    
-                    {this.state.showSiteForm ? this.showSiteForm() : null}
+                <button onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
+                        {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
+                </button>
+                
+                {this.state.showSiteForm ? this.showSiteForm() : null}
             </>
         )
     }

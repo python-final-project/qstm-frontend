@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Router from 'next/router'
 
 
 
@@ -15,8 +16,6 @@ export default function Task(props) {
 
 
             <ul>
-              {/* <li> <b> id: </b>  {props.task.id} </li>  */}
-              {/* <li> <b> Description: </b>  {props.task.description} </li>   */}
               <li> <b> Class topic: </b>  {props.task.class_topic} </li>  
               <li> <b> Date created: </b>  {props.task.date_created} </li>  
               <li> <b> Priority: </b>  {props.task.priority} </li>  
@@ -28,13 +27,3 @@ export default function Task(props) {
       </>
     )
 }
-
-// http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=1
-
-{/* <li key={props.course.id}>
-<Link href="/courses/[id]" as={`/courses/${props.course.id}`}>
-    <a>
-        {props.course.title}
-    </a>
-</Link>
-</li> */}
