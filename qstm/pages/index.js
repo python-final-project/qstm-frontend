@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-
+import Router from 'next/router'
+import { basicFetch } from '../utils/basicFetch'
 import ApiUrl from '../constants/url'
 
 
@@ -30,7 +31,7 @@ export default class Home extends React.Component {
 
   async onClick() {
 
-    const url = ApiUrl.ROOT
+    let url = ApiUrl.ROOT
     
     let userInfo = {
       username: this.state.username,
@@ -39,9 +40,39 @@ export default class Home extends React.Component {
     
     try {
       const response = await axios.post(url, userInfo)
-      console.log(response)
+      // console.log(response)
       window.localStorage.clear();
       window.localStorage.setItem('token', response.data);
+
+
+      url = ApiUrl.BASE + ApiUrl.USER + `?username=${this.state.username}`
+
+      const userResponse = await axios.get(url);
+
+      if (userResponse.data.length != 1){
+        throw "Not unique user"
+      }
+
+      const activeUser = userResponse.data[0]
+    
+      // console.log(activeUser)
+
+      if (activeUser.is_parent) {
+        const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `?email=${activeUser.email}`
+        const newParent = await basicFetch(parentUrl)
+
+        // console.log('is parent!', newParent[0])
+        Router.push(`/parent_profile/${newParent[0].id}`);
+
+      } else {
+
+        const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?user_id=${activeUser.id}`
+        // console.log(studentUrl)
+        const newStudent = await basicFetch(studentUrl)
+
+        Router.push(`/student_profile/${newStudent[0].id}`);
+      }
+      
 
       
     } catch(error) {
