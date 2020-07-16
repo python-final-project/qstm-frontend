@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import TaskForm from '../components/TaskForm'
+import TaskForm from './TaskForm'
+
+
 
 const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 

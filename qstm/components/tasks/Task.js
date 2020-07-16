@@ -8,7 +8,7 @@ export default function Task(props) {
       <>
         <li key={props.task.id}>      
 
-            <Link href="/tasks/[id]" as={`/tasks/${props.task.id}`}>
+            <Link href="../tasks/[id]" as={`../tasks/${props.task.id}`}>
                 <a>                   
                   {props.task.description}
                 </a>

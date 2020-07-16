@@ -3,8 +3,9 @@ import axios from 'axios'
 import Router from 'next/router'
 import ParentNav from '../../components/nav/ParentNav';
 
-import Task from '../../components/Task'
-import NewTask from '../../components/NewTask'
+import Task from '../../components/tasks/Task'
+import NewTask from '../../components/tasks/NewTask'
+
 
 
 const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
