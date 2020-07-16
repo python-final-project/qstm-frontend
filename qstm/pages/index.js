@@ -61,6 +61,8 @@ export default class Home extends React.Component {
         const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `?email=${activeUser.email}`
         const newParent = await basicFetch(parentUrl)
 
+        window.localStorage.setItem('dashboard', `/parent_dashboard/${newParent[0].id}`)
+ 
         // console.log('is parent!', newParent[0])
         Router.push(`/parent_dashboard/${newParent[0].id}`);
 
@@ -69,6 +71,8 @@ export default class Home extends React.Component {
         const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?user_id=${activeUser.id}`
         // console.log(studentUrl)
         const newStudent = await basicFetch(studentUrl)
+
+        window.localStorage.setItem('dashboard', `/student_dashboard/${newStudent[0].id}`)
 
         Router.push(`/student_dashboard/${newStudent[0].id}`);
       }
