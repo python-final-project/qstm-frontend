@@ -3,9 +3,8 @@ import axios from 'axios'
 import Router from 'next/router'
 import Link from 'next/link'
 
-
+import ApiUrl from '../../constants/url';
 import ParentNav from '../../components/nav/ParentNav';
-
 import Task from '../../components/tasks/Task'
 
 
@@ -87,31 +86,31 @@ export default class TaskHistory extends React.Component {
   }
 }
 
+
+async function getData(url) {    
+  const response = await fetch(url);
+  const data = await response.json()
+
+  return data
+}
+
 export async function getServerSideProps(context) { 
 
-  
-  const responseStudents = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/${context.params.id}/`);
-  const students = await responseStudents.json();  
-  console.log('students one', students)
+  const studentsUrl = ApiUrl.BASE + ApiUrl.STUDENT + `${context.params.id}/`
+  const newStudentList = await getData(studentsUrl)
 
+  const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${context.params.id}`
+  const newTasksList = await getData(tasksUrl)
 
-  const responseTasks = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${context.params.id}`);
-  const tasks = await responseTasks.json();  
-  
-  const responseParent = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/${students.parent_id}/`);
-  const activeParent = await responseParent.json();  
-  console.log('activeParent',activeParent)
+  const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `${newStudentList.parent_id}/`
+  const newActiveParent = await getData(parentUrl)
 
   return {
       props: {
-        activeParent: activeParent,
-        students : students,
-        tasks : tasks,
+        activeParent: newActiveParent,
+        students    : newStudentList,
+        tasks       : newTasksList,
       }
   }
 }
 
-
-
-
-{/* <span onClick={() => Router.push('/about')}>Click me</span> */}
