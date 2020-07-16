@@ -55,6 +55,7 @@ export default class ParentDashboard extends React.Component {
     return <div>
       <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
+      <html style={{backgroundColor: '#4d597a'}}>
       <h1>Parent's Dashboard </h1>
 
       <label> View tasks for :   </label>
@@ -71,7 +72,7 @@ export default class ParentDashboard extends React.Component {
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
         <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}  />
-
+        </html>
         <style jsx>{`
         div {
           height: auto;

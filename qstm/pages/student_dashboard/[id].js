@@ -55,10 +55,11 @@ export default class StudentDashboard extends React.Component {
 
     return (
     <>
-        <html style={{backgroundColor: '#4d597a'}}>
-        <body>
         <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
+        <html style={{backgroundColor: '#4d597a'}}>
+        <body>
+        
         <StudentNav id={this.state.activeStudent.id} />
         <h1>Student's Dashboard </h1>
 
