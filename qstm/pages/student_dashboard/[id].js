@@ -14,7 +14,7 @@ export default class StudentDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+        todayQuote          : props.todayQuote,
         activeStudent       : props.activeStudent,
         tasks               : props.tasks, 
         showAddTasksForm    : false,
@@ -59,13 +59,17 @@ export default class StudentDashboard extends React.Component {
     })
   }
 
-  render(){      
+  allDone()
+  {
+    window.alert("hi")
+  }
 
-      //for fun
-      let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+  render(){      
 
     return (
     <>
+        {/* {this.allDone()} */}
+
         <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
         <html style={{backgroundColor: '#4d597a'}}>
@@ -79,6 +83,14 @@ export default class StudentDashboard extends React.Component {
         <h3>
             Welcome {this.state.activeStudent.name}!!!
         </h3>
+
+        <div class='quote' >
+          <i>
+            <label className='quote'> { this.state.todayQuote.quoteText } </label>
+            <label className='quote'> { this.state.todayQuote.quoteAuthor } </label>
+          </i>
+        </div>
+        
 
         <br></br>  <br></br>
             <Link href={`/task_history/${this.state.activeStudent.id}`}>
@@ -114,7 +126,7 @@ export default class StudentDashboard extends React.Component {
       </body>
       </html>
       <style jsx>{`
-        body {
+         body {
           background-color: #4d597a;
         }
         h1 {
@@ -125,6 +137,14 @@ export default class StudentDashboard extends React.Component {
           align: center;
           text-align: center;
           align-content: center;
+        }
+        .quote{
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 22px;
+          width: 100%
         }
         ol {
           color: #ff8a01;
@@ -152,6 +172,12 @@ async function getData(url) {
 }
 
 export async function getServerSideProps(context) {
+    const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
+    const newTodayQuote = await getData(quoteURL)
+    // x = JSON.parse(newTodayQuote)
+    console.log('newTodayQuote', newTodayQuote)
+
+
 
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${context.params.id}`
     const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `${context.params.id}`
@@ -162,8 +188,9 @@ export async function getServerSideProps(context) {
     
   return {
       props: {
-        tasks : tasks,
-        activeStudent: activeStudent,
+        todayQuote    : newTodayQuote,
+        tasks         : tasks,
+        activeStudent : activeStudent,
       }
   }
 }
