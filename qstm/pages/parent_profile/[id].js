@@ -103,13 +103,13 @@ export default class ParentProfile extends React.Component {
                 <link rel="stylesheet"
                 href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
                 <ParentNav id={this.state.activeParent.id}/>
-                <h1 style={{align:'center', textAlign:'center', color:'#ff8a01'}}>My Account Setting Page - Parent View</h1>
+                <h1 style={{align:'center', textAlign:'center', color:''}}>My Account Setting Page - Parent View</h1>
 
                 <hr/>
 
                 <div>
-                    <h3>
-                        Welcome! {this.state.activeParent.name}!!!
+                    <h3 style={{color: '#ff8a01'}}>
+                        Welcome {this.state.activeParent.name}!!!
                     </h3>
                 </div>
 
@@ -137,7 +137,7 @@ export default class ParentProfile extends React.Component {
                     
                     <hr/>
 
-                    <button onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
+                    <button style={{backgroundColor:'#152459', color:'#ff8a01'}} onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
                             {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
                     </button>
                     

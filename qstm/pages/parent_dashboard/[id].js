@@ -88,8 +88,12 @@ export default class ParentDashboard extends React.Component {
         </div>
       )}
 
+
+        <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}>Add task</button>
+
       {/* only if the parent have students, will see this */}
       { this.state.showTaskInfo && (
+
 
         <div>
             <label> View tasks for :   </label>
@@ -164,9 +168,6 @@ export default class ParentDashboard extends React.Component {
         p {
           color: #ff8a01;
         }
-        form {
-          // float: left;
-        }
         html {
           background-color: #4d597a;
         }
@@ -174,6 +175,9 @@ export default class ParentDashboard extends React.Component {
           width: 100px;
         }
         button {
+
+          backgroundColor:'#152459';
+          color:'#ff8a01';
           width: 130px;
         }
       `}</style>  
