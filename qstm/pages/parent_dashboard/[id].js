@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import Router from 'next/router'
+
 import Task from '../../components/Task'
 import NewTask from '../../components/NewTask'
 
@@ -21,7 +23,6 @@ export default class ParentDashboard extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleCreateTask = this.handleCreateTask.bind(this)
-    // this.handleUpdateTask = this.handleUpdateTask.bind(this)
    
   }
 
@@ -48,7 +49,7 @@ export default class ParentDashboard extends React.Component {
     this.setState({
       tasks : newTasks,
     })
-
+    
   }
 
 

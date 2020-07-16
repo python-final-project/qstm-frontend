@@ -1,20 +1,12 @@
-import { useRouter } from 'next/router'
-import { withRouter } from 'next/router'
 import Router from 'next/router'
-
 import axios from 'axios'
 import React from 'react'
-
-// const url = 'https://ileal-summer-camp-api.herokuapp.com/api/v1/courses/';
-// const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
 
 
 
 
 export default class TaskForm extends React.Component {
   constructor(props) {
-
-
     super(props)
     this.state = {
       id              : this.props.task.id ,
@@ -28,21 +20,11 @@ export default class TaskForm extends React.Component {
       student_id      : this.props.task.student_id,
     }
 
-      // const router = withRouter();
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
 
-      //// UPDATE PART
-      async function updateHandler() {        
-        const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
-        const response = await axios.put(upd_url, this.state);
-        router.push('/');
 
-        // const url = 'https://drf-snacks-api.herokuapp.com/api/v1/snacks/';
-        // const response = await axios.delete(url + props.snack.id)
-
-      }
-      // const new_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
       
   }
 
@@ -105,49 +87,42 @@ export default class TaskForm extends React.Component {
   }
 
 
-   handleSubmit(event) {       
-      event.preventDefault();      
-
-      console.log('handlesubmit')
-      // const upd_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/';
-      const upd_url = 'https://www.google.com/';
-      // router.push(upd_url);
-      withRouter(upd_url)
-      
-      // let UpdTaskState = { 
-      //   id              : this.state.id, 
-      //   date_created    : this.state.date_created,  
-      //   due_date        : this.state.due_date ,
-      //   class_topic     : this.state.class_topic , 
-      //   description     : this.state.description,
-      //   priority        : this.state.priority ,
-      //   completed       : this.state.completed ,      
-      //   date_completed  : this.state.date_completed ,
-      //   student_id      : this.state.student_id,
-      //   }
-     
-      // this.setState({
-      //   description:'',
-      //   class_topic:'',
-      //   due_date: '',
-      // });
+  async handleSubmit(event) {
+    console.log('on handleSubmit', event)
+    event.preventDefault(); 
+        
+    const upd_url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
+    const response = await axios.put(upd_url, this.state);
+    Router.push('/parent_dashboard/1');
+    
   }
+  
+  async handleDelete(event) {
+    console.log('on handleSubmit', event)
+    event.preventDefault(); 
+    
+   
+    const url = `http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/${this.state.id}/`;
+    const response = await axios.delete(url)
+    Router.push('/parent_dashboard/1');
 
+  }
+  
 
   render() {
       return (
-          <form onSubmit={this.handleSubmit}>
-              
-              <label>  Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
+        <div>
+          <form onSubmit={this.handleSubmit}>              
+              <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
               <br></br><br></br>
 
 
-              <label>  Class topic  </label>   <br></br>
-              <input name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
-              </input> <br></br> <br></br>
-
               <label>  Description  </label>   <br></br>
               <input name="description" type="text" required value={this.state.description} onChange={this.handleChange}>
+              </input> <br></br> <br></br>
+
+              <label>  Class topic  </label>   <br></br>
+              <input name="class_topic" type="text" required value={this.state.class_topic} onChange={this.handleChange}>
               </input> <br></br> <br></br>
 
               <label>  Due date  </label>   <br></br>
@@ -182,16 +157,20 @@ export default class TaskForm extends React.Component {
               </input> <br></br>
 
               <br></br>
-              <button>update</button>
-              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}
-              
+              <button>Update</button>
+              {/* <button onClick={() => updateHandler(this.state)}>Update</button>                   */}              
           </form>
+          <form onSubmit={this.handleDelete}>
+              <button>Delete</button>
+          </form>
+          
+          </div>
       )
   }
 }
 
 
-<span onClick={() => Router.push('/about')}>Click me</span>
+{/* <span onClick={() => Router.push('/about')}>Click me</span> */}
 
 
 
