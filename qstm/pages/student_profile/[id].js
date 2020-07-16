@@ -115,24 +115,13 @@ export default class StudentProfile extends React.Component {
                 
                 <hr/>
 
-                <button onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
+                <button style = {{backgroundColor:'#152459', color:'#ff8a01'}} onClick={() => this.setState({showSiteForm: !this.state.showSiteForm})}>
                         {this.state.showSiteForm ? 'Click to Close':'Add New Site' }
                 </button>
                 
                 {this.state.showSiteForm ? this.showSiteForm() : null}
                 </body>
                 </html>
-                <style jsx>{`
-                    ul {
-                        color: orange;
-                    }
-                    li {
-                        color: orange;
-                    }
-                    label {
-                        color: orange;
-                    }
-                `}</style>
             </>
         )
     }

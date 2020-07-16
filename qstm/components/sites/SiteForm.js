@@ -59,7 +59,12 @@ export default class SiteForm extends React.Component {
           <input type="text" name="class_topic" value={this.state.class_topic} onChange={this.handleChange}></input>
           <br></br>
 
-          <button type="submit"> Add Site </button>
+          <button style={{backgroundColor:'#152459', color:'#ff8a01'}}type="submit"> Add Site </button>
+          <style jsx>{`
+            label {
+              color: #ff8a01;
+            }
+          `}</style>
         </form>
       )
     }

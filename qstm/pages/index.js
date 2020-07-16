@@ -85,21 +85,43 @@ export default class Home extends React.Component {
 
   render() {      
     return (
+      
+      <html style={{backgroundColor:'#4d597a'}}>
       <div>
-        <h1>Login Page</h1>
-        <label>
+        <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
+        <h1 style={{color:'#ff8a01'}}>Login Page</h1>
+        {/* <label>
           Username: 
-        </label>
-        <input type="text" name="username" value={this.state.username} onChange={this.onChange}></input>
+        </label> */}
+        <input type="text" name="username" placeholder = 'username' value={this.state.username} onChange={this.onChange}></input><br></br>
 
-        <label>
+        {/* <label>
           Password: 
-        </label>
-        <input type="password" name="password" value={this.state.password} onChange={this.onChange}></input>
+        </label> */}
+        <input type="password" name="password" placeholder='password' value={this.state.password} onChange={this.onChange}></input><br></br>
 
-        <button onClick={this.onClick}>Login</button>
+        <button style={{backgroundColor:'#152459', color:'#ff8a01'}}onClick={this.onClick}>Login</button>
+        <style jsx>{`
+          label {
+            color: #ff8a01;
+            margin-left:;
+            width: 100px;
+            
+          }
+          body {
+            background-color: #4d597a;
+          }
+          h1 {
+            color: #ff8a01;
+          }
+          div {
+            background-color: #4d597a;
+            margin-left: 40%;
+          }
+        `}</style>
 
       </div>
+      </html>
     )
   }
 }

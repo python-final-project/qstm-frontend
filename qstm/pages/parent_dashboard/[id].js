@@ -99,7 +99,7 @@ export default class ParentDashboard extends React.Component {
           {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
         </ol>
 
-        <button onClick={this.toggleShowAddTasksForm}>Add task</button>
+        <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}>Add task</button>
 
         <div>
           { this.state.showAddTasksForm && (
@@ -134,14 +134,15 @@ export default class ParentDashboard extends React.Component {
         p {
           color: #ff8a01;
         }
-        form {
-          // float: left;
-        }
         html {
           background-color: #4d597a;
         }
         select {
           width: 100px;
+        }
+        button {
+          backgroundColor:'#152459';
+          color:'#ff8a01';
         }
       `}</style>  
 
