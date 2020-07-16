@@ -49,12 +49,16 @@ export default class Home extends React.Component {
 
       const userResponse = await axios.get(url);
 
+      
+
       if (userResponse.data.length != 1){
         throw "Not unique user"
       }
 
       const activeUser = userResponse.data[0]
     
+      window.localStorage.setItem('isParent', activeUser.is_parent)
+
       // console.log(activeUser)
 
       if (activeUser.is_parent) {
