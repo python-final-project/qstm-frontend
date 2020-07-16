@@ -1,42 +1,105 @@
 import React from 'react'
 import axios from 'axios'
-import Login from '../components/LoginForm'
+import Router from 'next/router'
+import { basicFetch } from '../utils/basicFetch'
+import ApiUrl from '../constants/url'
 
-const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/users/';
 
 
-export default class App extends React.Component {
+
+export default class Home extends React.Component {
 
   constructor(props) {
     super(props);
+    
+    this.state = {
+      username: '',
+      password: '',
+    }
 
-    this.LoginHandler = this.LoginHandler.bind(this);    
+    this.onChange = this.onChange.bind(this);
+    this.onClick  = this.onClick.bind(this);
+
   }
 
 
-  async LoginHandler(info) {
-      console.log(info.username)
-      console.log(info.password == '')
-      const response = await axios.get(url, info);
-      // const query = url +  '?account_name=' + info.username + '&password=' + info.password
-      console.log(query)
-      // const response = await axios.get(query)
-      // console.log(url + query)
-      console.log(response)
-      // console.log(url, info)
-      // console.log(response.config.url)
+  onChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
+  async onClick() {
+
+    let url = ApiUrl.ROOT
+    
+    let userInfo = {
+      username: this.state.username,
+      password: this.state.password,
+    }
+    
+    try {
+      const response = await axios.post(url, userInfo)
+      // console.log(response)
+      window.localStorage.clear();
+      window.localStorage.setItem('token', response.data);
 
 
+      url = ApiUrl.BASE + ApiUrl.USER + `?username=${this.state.username}`
 
+      const userResponse = await axios.get(url);
 
+      if (userResponse.data.length != 1){
+        throw "Not unique user"
+      }
 
-  render(){      
-    return <div>
-      <main>
-        <Login onLogin={this.LoginHandler}/>      
-      </main>      
+      const activeUser = userResponse.data[0]
+    
+      // console.log(activeUser)
+
+      if (activeUser.is_parent) {
+        const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `?email=${activeUser.email}`
+        const newParent = await basicFetch(parentUrl)
+
+        // console.log('is parent!', newParent[0])
+        Router.push(`/parent_dashboard/${newParent[0].id}`);
+
+      } else {
+
+        const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?user_id=${activeUser.id}`
+        // console.log(studentUrl)
+        const newStudent = await basicFetch(studentUrl)
+
+        Router.push(`/student_dashboard/${newStudent[0].id}`);
+      }
+      
+
+      
+    } catch(error) {
+      if (error.response.status == 401) {
+        console.log('Invalid Credentials')
+      }
+    }
+
+  }
+
+  render() {      
+    return (
+      <div>
+        <h1>Login Page</h1>
+        <label>
+          Username: 
+        </label>
+        <input type="text" name="username" value={this.state.username} onChange={this.onChange}></input>
+
+        <label>
+          Password: 
+        </label>
+        <input type="password" name="password" value={this.state.password} onChange={this.onChange}></input>
+
+        <button onClick={this.onClick}>Login</button>
+
       </div>
+    )
   }
 }
