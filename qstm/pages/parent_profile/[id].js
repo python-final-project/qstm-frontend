@@ -98,8 +98,12 @@ export default class ParentProfile extends React.Component {
     render() {
         return (
             <>
+                <html style={{backgroundColor: '#4d597a'}}>
+                <body style={{backgroundColor: '#4d597a', height: '100%'}}>
+                <link rel="stylesheet"
+                href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
                 <ParentNav id={this.state.activeParent.id}/>
-                <h1>My Account Setting Page - Parent View</h1>
+                <h1 style={{align:'center', textAlign:'center', color:'#ff8a01'}}>My Account Setting Page - Parent View</h1>
 
                 <hr/>
 
@@ -113,7 +117,7 @@ export default class ParentProfile extends React.Component {
                     <h3>
                         Select Student
                         <select onChange={this.handleStudentChange}>
-                            <option value="-1">SELECT STUDENT</option> 
+                            <option value="-1" style={{color:'orange'}}>SELECT STUDENT</option> 
                             {this.state.studentList.map(student => 
                             <option value={student.id} key={student.id}>{student.name}</option>
                             )}
@@ -139,6 +143,10 @@ export default class ParentProfile extends React.Component {
                     
                     {this.state.showSiteForm ? this.showSiteForm() : null}
                 </div>
+                </body>
+                
+                </html>
+            
             </>
         )
     }

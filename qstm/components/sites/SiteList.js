@@ -18,6 +18,18 @@ export default class SiteList extends React.Component {
                          handleSiteUpdate={this.props.handleSiteUpdate} />
                         )}
                 </ul>
+                <style jsx>{`
+                    ul {
+                        color: orange;
+                    }
+                    li {
+                        color: orange;
+                    }
+                    label {
+                        color: orange;
+                    }
+                `}</style>
+             
             </>
         )
     }
