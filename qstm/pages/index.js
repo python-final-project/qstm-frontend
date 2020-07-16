@@ -1,42 +1,74 @@
 import React from 'react'
 import axios from 'axios'
-import Login from '../components/LoginForm'
 
-const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/users/';
+import ApiUrl from '../constants/url'
 
 
-export default class App extends React.Component {
+
+
+export default class Home extends React.Component {
 
   constructor(props) {
     super(props);
+    
+    this.state = {
+      username: '',
+      password: '',
+    }
 
-    this.LoginHandler = this.LoginHandler.bind(this);    
+    this.onChange = this.onChange.bind(this);
+    this.onClick  = this.onClick.bind(this);
+
   }
 
 
-  async LoginHandler(info) {
-      console.log(info.username)
-      console.log(info.password == '')
-      const response = await axios.get(url, info);
-      // const query = url +  '?account_name=' + info.username + '&password=' + info.password
-      console.log(query)
-      // const response = await axios.get(query)
-      // console.log(url + query)
+  onChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  async onClick() {
+
+    const url = ApiUrl.ROOT
+    
+    let userInfo = {
+      username: this.state.username,
+      password: this.state.password,
+    }
+    
+    try {
+      const response = await axios.post(url, userInfo)
       console.log(response)
-      // console.log(url, info)
-      // console.log(response.config.url)
+      window.localStorage.clear();
+      window.localStorage.setItem('token', response.data);
+
+      
+    } catch(error) {
+      if (error.response.status == 401) {
+        console.log('Invalid Credentials')
+      }
+    }
+
   }
 
+  render() {      
+    return (
+      <div>
+        <h1>Login Page</h1>
+        <label>
+          Username: 
+        </label>
+        <input type="text" name="username" value={this.state.username} onChange={this.onChange}></input>
 
+        <label>
+          Password: 
+        </label>
+        <input type="password" name="password" value={this.state.password} onChange={this.onChange}></input>
 
+        <button onClick={this.onClick}>Login</button>
 
-
-
-  render(){      
-    return <div>
-      <main>
-        <Login onLogin={this.LoginHandler}/>      
-      </main>      
       </div>
+    )
   }
 }
