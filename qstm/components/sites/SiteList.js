@@ -36,6 +36,18 @@ export default class SiteList extends React.Component {
                         <SiteItem list={item} key={this.state.sites.indexOf(item)} handleSiteUpdate={this.props.handleSiteUpdate} />
                         )}
                 </ul>
+                <style jsx>{`
+                    ul {
+                        color: orange;
+                    }
+                    li {
+                        color: orange;
+                    }
+                    label {
+                        color: orange;
+                    }
+                `}</style>
+             
             </>
         )
     }

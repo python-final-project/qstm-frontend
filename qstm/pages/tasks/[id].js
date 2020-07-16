@@ -118,7 +118,7 @@ export default class TaskForm extends React.Component {
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
           <h1 style={{align: 'center', textAlign: 'center'}} >Task</h1>
           <form onSubmit={this.handleSubmit}>
-              <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
+              <label style={{color: '#ff8a01'}}> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
               <input
                   name="student_id" id="student_id" value={this.props.student_id} >
               </input> <br></br>
@@ -170,7 +170,7 @@ export default class TaskForm extends React.Component {
               </input> <br></br>
 
               <br></br>
-              <button>Update</button>
+              <button style={{backgroundColor:'#152459', color:'#ff8a01'}}>Update</button>
 
               <style jsx> {`
                 h1 {
@@ -203,7 +203,7 @@ export default class TaskForm extends React.Component {
           
 
           <form onSubmit={this.handleDelete}>
-              <button>Delete</button>
+              <button style={{backgroundColor:'#152459', color:'#ff8a01'}}>Delete</button>
           </form>
           
           </div>

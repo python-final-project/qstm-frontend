@@ -87,20 +87,24 @@ export default class StudentProfile extends React.Component {
     render() {
         return (
             <>
+                <html style={{backgroundColor: '#4d597a'}}>
+                <body style={{backgroundColor: '#4d597a', height: '100%'}}>
+                <link rel="stylesheet"
+                href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
                 <StudentNav id={this.state.activeStudent.id}/>
-                <h1>My Account Setting Page - Student View</h1>
+                <h1 style={{align:'center', textAlign:'center', color:''}}>My Account Setting Page - Student View</h1>
 
                 <hr/>
 
                 <div>
-                    <h3>
-                        Welcome! {this.state.activeStudent.name}!!!
+                    <h3 style={{align:'center', textAlign:'center', color:'#ff8a01'}}>
+                        Welcome {this.state.activeStudent.name}!!!
                     </h3>
                 </div>
 
                 <hr/>
 
-                <h3>
+                <h3 style={{align:'center', textAlign:'center', color:'#ff8a01'}}>
                     Manage Site Information:
                 </h3>
                     <SiteList sites={this.state.siteList} handleSiteUpdate={this.handleSiteUpdate}/>
@@ -112,6 +116,19 @@ export default class StudentProfile extends React.Component {
                 </button>
                 
                 {this.state.showSiteForm ? this.showSiteForm() : null}
+                </body>
+                </html>
+                <style jsx>{`
+                    ul {
+                        color: orange;
+                    }
+                    li {
+                        color: orange;
+                    }
+                    label {
+                        color: orange;
+                    }
+                `}</style>
             </>
         )
     }
