@@ -16,10 +16,10 @@ export default class ParentDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      students : props.students,
-      currentStudent : props.students[0],
-      tasks : props.tasks, 
-      currentStudent_id   :props.students[0].id,
+      students            : props.students,
+      currentStudent      : props.students[0],
+      tasks               : props.tasks, 
+      currentStudent_id   : props.students[0].id,
       currentStudent_name : props.students[0].name,
       activeParent        : props.activeParent, 
     }
@@ -30,14 +30,22 @@ export default class ParentDashboard extends React.Component {
 
   async handleChange(event) {
     const selectedStudentId = event.target.value
- 
-    // TODO: ADD completed=false to the query
-    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}&completed=false`);    
+
+    
+    let newCurrentStudent_name = ''
+    for (let i = 0; i < this.state.students.length; i++) {    
+      if (this.state.students[i].id == selectedStudentId) {
+        newCurrentStudent_name = this.state.students[i].name
+      }
+    }
+
+    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}`);    
     const tasks = await response.json();  
     
     this.setState({
-        currentStudent_id : selectedStudentId,
-        tasks : tasks,
+        currentStudent_id   : selectedStudentId,
+        currentStudent_name : newCurrentStudent_name,
+        tasks               : tasks,
     }  )
 
   }
@@ -53,20 +61,6 @@ export default class ParentDashboard extends React.Component {
     })
     
   }
-
-
-  // handleUpdateTask(task){
-  //   console.log('in handleUpdateTask')
-  //   // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
-  //   // the child can call it BS is send as a prop in <NewTask....
-  //   // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
-
-  //   // const newTasks = this.state.tasks.concat(task)
-  //   // this.setState({
-  //   //   tasks : newTasks,
-  //   // })
-
-  // }
 
 
   render(){      
@@ -87,13 +81,15 @@ export default class ParentDashboard extends React.Component {
       )}         
       </select>
       
-        <p> There are {this.state.tasks.length} tasks for this student</p>
+      <p> There are {this.state.tasks.length} tasks for {this.state.currentStudent_name}</p>
    
         <ol>
             {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
         </ol>
 
-        <NewTask student_id={ this.state.currentStudent_id} onCreateTask={this.handleCreateTask}  />
+        <NewTask student_id={ this.state.currentStudent_id} 
+              student_name ={this.state.currentStudent_name}
+              onCreateTask={this.handleCreateTask}  />
         </html>
         <style jsx>{`
         div {

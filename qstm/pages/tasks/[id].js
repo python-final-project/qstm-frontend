@@ -23,8 +23,6 @@ export default class TaskForm extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
-
-
       
   }
 
