@@ -62,7 +62,7 @@ export default class Home extends React.Component {
         const newParent = await basicFetch(parentUrl)
 
         // console.log('is parent!', newParent[0])
-        Router.push(`/parent_profile/${newParent[0].id}`);
+        Router.push(`/parent_dashboard/${newParent[0].id}`);
 
       } else {
 
@@ -70,7 +70,7 @@ export default class Home extends React.Component {
         // console.log(studentUrl)
         const newStudent = await basicFetch(studentUrl)
 
-        Router.push(`/student_profile/${newStudent[0].id}`);
+        Router.push(`/student_dashboard/${newStudent[0].id}`);
       }
       
 
