@@ -3,17 +3,10 @@ import axios from 'axios'
 import Router from 'next/router'
 import Link from 'next/link'
 
-import ParentNav from '../../components/nav/ParentNav';
 import ApiUrl from '../../constants/url';
-
+import ParentNav from '../../components/nav/ParentNav';
 import Task from '../../components/tasks/Task'
 import NewTask from '../../components/tasks/NewTask'
-
-
-
-// const parents_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/parents/';
-// const students_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/students/'
-// const tasks_url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/'
 
 
 export default class ParentDashboard extends React.Component {
@@ -44,7 +37,7 @@ export default class ParentDashboard extends React.Component {
       }
     }
 
-    const response = await fetch(`http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/tasks/?student_id=${event.target.value}`);    
+    const response = await fetch(ApiUrl.BASE + ApiUrl.TASK + `?student_id=${event.target.value}`);    
     const tasks = await response.json();  
     
     this.setState({
@@ -104,7 +97,6 @@ export default class ParentDashboard extends React.Component {
 
         <ol>
           {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
-            {/* {this.state.tasks.map(task => <Task key={task.id} task={task} />)} */}
         </ol>
 
         <button onClick={this.toggleShowAddTasksForm}>Add task</button>
@@ -181,9 +173,9 @@ export async function getServerSideProps(context) {
 
   return {
       props: {
-        activeParent: newActiveParent,
-        students : newStudentList,
-        tasks : newTasksList,
+        activeParent  : newActiveParent,
+        students      : newStudentList,
+        tasks         : newTasksList,
       }
   }
 }
