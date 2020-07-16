@@ -25,6 +25,7 @@ export default class ParentProfile extends React.Component {
 
         this.handleStudentChange = this.handleStudentChange.bind(this)
         this.siteSubmitHandler = this.siteSubmitHandler.bind(this)
+        this.handleSiteUpdate = this.handleSiteUpdate.bind(this)
     }
 
 
@@ -77,8 +78,16 @@ export default class ParentProfile extends React.Component {
     }
 
 
-    showUpdateForm = () => {
-        console.log('it works!')
+    async handleSiteUpdate(siteInfo, id) {
+        const url = ApiUrl.BASE + ApiUrl.SITE + id + '/'
+
+        await axios.put(url, siteInfo)
+
+        let newSiteList = await getSitesByStudentId(this.state.activeStudent)
+
+        this.setState({
+            siteList: newSiteList,
+        })
     }
 
 
@@ -116,7 +125,7 @@ export default class ParentProfile extends React.Component {
                         Manage Site Information:
                     </h3>
 
-                    <SiteList sites={this.state.siteList} />
+                    <SiteList sites={this.state.siteList} handleSiteUpdate={this.handleSiteUpdate} />
                     
                     <hr/>
 

@@ -11,6 +11,7 @@ export default class SiteList extends React.Component {
         this.state = {
             sites: props.sites,
         }
+
     }
 
     // UNSAFE_componentWillReceiveProps(nextProps) {
@@ -25,11 +26,6 @@ export default class SiteList extends React.Component {
             })
         }
     }
-
-    showUpdateForm  (event) {
-        console.log('it works!')
-        console.log(event.target.value)
-    }
     
     render() {
         return (
@@ -37,7 +33,7 @@ export default class SiteList extends React.Component {
                 <h4>Site List</h4>
                 <ul>
                     {this.state.sites.map(item => 
-                        <SiteItem list={item} indexOf={this.state.sites.indexOf(item)} key={this.state.sites.indexOf(item)} clickHandler={this.showUpdateForm} />
+                        <SiteItem list={item} key={this.state.sites.indexOf(item)} handleSiteUpdate={this.props.handleSiteUpdate} />
                         )}
                 </ul>
             </>

@@ -1,5 +1,6 @@
 import React from 'react';
 import UpdateSiteForm from './UpdateSiteForm';
+import PassForm from '../PassForm';
 
 export default class SiteItem extends React.Component {
 
@@ -14,7 +15,6 @@ export default class SiteItem extends React.Component {
     }
 
     handleChange() {
-        console.log('clicked!')
         this.setState({
             showForm: !this.state.showForm,
         })
@@ -27,7 +27,7 @@ export default class SiteItem extends React.Component {
                 <button value={this.props.indexOf} onClick={this.handleChange}>View</button>
 
                 <div style={this.state.showForm ? {} : {display: 'none'}}>
-                    <UpdateSiteForm />
+                    <UpdateSiteForm site={this.props.list} handleSiteUpdate={this.props.handleSiteUpdate} />
                 </div>
 
             </li>
