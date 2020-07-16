@@ -26,6 +26,7 @@ export default class ParentDashboard extends React.Component {
       currentStudent_id   : props.students[0].id,
       currentStudent_name : props.students[0].name,
       activeParent        : props.activeParent, 
+      showAddTasksForm    : false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleCreateTask = this.handleCreateTask.bind(this)
@@ -58,14 +59,22 @@ export default class ParentDashboard extends React.Component {
     // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
     // the child can call it BS is send as a prop in <NewTask....
     // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
-
     const newTasks = this.state.tasks.concat(task)
+    const newShowAddTasks = false
     this.setState({
-      tasks : newTasks,
+      tasks             : newTasks,
+      showAddTasksForm  : newShowAddTasks,
     })
     
   }
 
+ 
+  toggleShowAddTasksForm =() => {
+    const newShowAddTasks = !this.state.showAddTasksForm
+    this.setState({
+      showAddTasksForm    : newShowAddTasks,
+    })
+  }
 
   render(){      
     return <div>
@@ -98,9 +107,17 @@ export default class ParentDashboard extends React.Component {
             {/* {this.state.tasks.map(task => <Task key={task.id} task={task} />)} */}
         </ol>
 
-        <NewTask student_id={ this.state.currentStudent_id} 
+        <button onClick={this.toggleShowAddTasksForm}>Add task</button>
+
+        <div>
+          { this.state.showAddTasksForm && (
+             <NewTask student_id={ this.state.currentStudent_id} 
               student_name ={this.state.currentStudent_name}
               onCreateTask={this.handleCreateTask}  />
+          )}
+        </div>
+
+       
         </html>
         <style jsx>{`
         div {
