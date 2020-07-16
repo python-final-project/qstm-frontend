@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import Router from 'next/router'
+import Link from 'next/link'
+
+
 import ParentNav from '../../components/nav/ParentNav';
 
 import Task from '../../components/tasks/Task'
@@ -82,8 +85,14 @@ export default class ParentDashboard extends React.Component {
       )}         
       </select>
       <br></br>  <br></br>
-      <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
    
+      <Link href={`/task_history/${this.state.currentStudent_id}`}>
+          <a>View {this.state.currentStudent_name}'s tasks history </a>
+      </Link>
+
+      <br></br>  <br></br>
+      <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
+
         <ol>
           {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
             {/* {this.state.tasks.map(task => <Task key={task.id} task={task} />)} */}
