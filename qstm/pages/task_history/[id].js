@@ -12,7 +12,7 @@ import Task from '../../components/tasks/Task'
 
 
 
-export default class ParentDashboard extends React.Component {
+export default class TaskHistory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -38,9 +38,16 @@ export default class ParentDashboard extends React.Component {
 
         <h5> History of { this.state.currentStudent_name }'s tasks :   </h5>
         <br></br>  <br></br>
+
+        <Link href={`/parent_dashboard/${this.state.activeParent.id}`}>
+          <a>Return</a>
+        </Link>
+        <br></br>  <br></br>
+        
           <ol>
               {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
           </ol>
+
           </html>
         <style jsx>{`
         div {
