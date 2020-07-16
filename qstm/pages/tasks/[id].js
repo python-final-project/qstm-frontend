@@ -117,12 +117,6 @@ export default class TaskForm extends React.Component {
           <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
           <h1 style={{align: 'center', textAlign: 'center'}} >Task</h1>
-          <form onSubmit={this.handleSubmit}>
-              <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br>
-              <input
-                  name="student_id" id="student_id" value={this.props.student_id} >
-              </input> <br></br>
-
         <div>
           <form onSubmit={this.handleSubmit}>              
               <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
@@ -161,13 +155,12 @@ export default class TaskForm extends React.Component {
               <br></br><br></br>
 
 
-              <label> id:</label>
-              <input name="id" id="id" value={this.state.id} >
-              </input> <br></br>
-              <label> student_id:</label>
-              <input
-                  name="student_id" id="student_id" value={this.state.student_id} >
-              </input> <br></br>
+              <input  
+                name="id" id="id" value={this.state.id} type="hidden">  
+              </input>
+              <input 
+              name="student_id" id="student_id" value={this.state.student_id} type="hidden"> 
+              </input> 
 
               <br></br>
               <button>Update</button>
@@ -207,7 +200,7 @@ export default class TaskForm extends React.Component {
           </form>
           
           </div>
-          </form>
+
           </body>
           
           </html>
