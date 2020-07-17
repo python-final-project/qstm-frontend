@@ -73,7 +73,9 @@ export default class TaskHistory extends React.Component {
         {this.isParent()}
         
         <br></br>  <br></br>
-        <h1> History of { this.state.currentStudent_name }'s tasks   </h1>
+        <label className='qstmTitle'> History of { this.state.currentStudent_name }'s tasks  </label>
+
+
         <br></br>  <br></br>
 
         <Link href={this.state.dashboard}>
@@ -87,6 +89,15 @@ export default class TaskHistory extends React.Component {
 
           </html>
         <style jsx>{`
+        .qstmTitle {
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 35px;
+          width: 100%;
+          font-family: OCR A Std, monospace;
+        }
         div {
           height: auto;
           width: auto;

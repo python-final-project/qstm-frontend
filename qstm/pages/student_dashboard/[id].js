@@ -59,10 +59,12 @@ export default class StudentDashboard extends React.Component {
     })
   }
 
-  allDone()
-  {
-    window.alert("hi")
-  }
+  // allDone()
+  // {
+  //   if (this.state.tasks.length == 0) {
+  //     window.alert("0 tasks pending")
+  //   }
+  // }
 
   render(){      
 
@@ -75,8 +77,8 @@ export default class StudentDashboard extends React.Component {
         <html style={{backgroundColor: '#4d597a'}}>
         <body>
         
-        <StudentNav id={this.state.activeStudent.id} />
-        <h1>Student's Dashboard </h1>
+        <StudentNav id={this.state.activeStudent.id} />        
+        <label className='qstmTitle'>Student's Dashboard </label>
 
         <hr />
 
@@ -126,6 +128,15 @@ export default class StudentDashboard extends React.Component {
       </body>
       </html>
       <style jsx>{`
+        .qstmTitle {
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 35px;
+          width: 100%;
+          font-family: OCR A Std, monospace;
+        }
          body {
           background-color: #4d597a;
         }
@@ -172,11 +183,8 @@ async function getData(url) {
 }
 
 export async function getServerSideProps(context) {
-    const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
-    const newTodayQuote = await getData(quoteURL)
-    // x = JSON.parse(newTodayQuote)
-    console.log('newTodayQuote', newTodayQuote)
-
+    // const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
+    // const newTodayQuote = await getData(quoteURL)
 
 
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${context.params.id}`
@@ -188,7 +196,7 @@ export async function getServerSideProps(context) {
     
   return {
       props: {
-        todayQuote    : newTodayQuote,
+        todayQuote    : 'newTodayQuote',
         tasks         : tasks,
         activeStudent : activeStudent,
       }

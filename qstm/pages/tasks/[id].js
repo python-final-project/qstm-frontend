@@ -116,7 +116,14 @@ export default class TaskForm extends React.Component {
         <body style={{backgroundColor: '#4d597a', height: '100%'}}>
           <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
-          <h1 style={{align: 'center', textAlign: 'center'}} >Task</h1>
+          <br></br><br></br>
+          <h1 style={{align: 'center', textAlign: 'center', fontFamily: 'OCR A Std, monospace', fontSize:'35px', color:'white'}} >
+              Edit Task</h1>
+          
+
+
+
+          
         <div>
           <form onSubmit={this.handleSubmit}>              
               <label> Date Created  </label>  <label> <b> {this.state.date_created} </b> </label>
@@ -164,6 +171,15 @@ export default class TaskForm extends React.Component {
               <button style={{backgroundColor:'#152459', color:'#ff8a01'}}>Update</button>
 
               <style jsx> {`
+                .qstmTitle {
+                  align: center;
+                  text-align: center;
+                  align-content: center;
+                  color: white;
+                  font-size: 35px;
+                  width: 100%;
+                  font-family: OCR A Std, monospace;
+                }
                 h1 {
                   align: center;
                   text-align: center;
@@ -188,6 +204,7 @@ export default class TaskForm extends React.Component {
                   height: 100%;
                   background-color:#4d597a;
                 }
+                
               `}
               </style>
           </form>

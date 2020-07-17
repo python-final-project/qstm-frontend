@@ -94,7 +94,38 @@ export default class Home extends React.Component {
   render() {      
     return (
       
-      <html style={{backgroundColor:'#4d597a'}}>
+      <html style={{backgroundColor:'#4d597a'}}>        
+
+      <div>
+        <br></br> <br></br> <br></br> 
+        <label className='qstm'> QSTM </label>
+        <br></br> <br></br> <br></br> 
+        <label className='qstmWords'> Quarantine Student Task Manager </label>        
+        <br></br> <br></br> <br></br> 
+        <style jsx>{`
+          .qstm {
+            align: center;
+            text-align: center;
+            align-content: center;
+            color: white;
+            font-size: 100px;
+            width: 100%;
+            font-family: OCR A Std, monospace;
+          }
+          .qstmWords {
+            align: center;
+            text-align: center;
+            align-content: center;
+            color: white;
+            font-size: 40px;
+            width: 100%;
+            font-family: OCR A Std, monospace; 
+          }
+          `}</style>
+      </div>
+
+
+
       <div>
         <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
         <h1 style={{color:'#ff8a01'}}>Login Page</h1>
@@ -109,6 +140,9 @@ export default class Home extends React.Component {
         <input type="password" name="password" placeholder='password' value={this.state.password} onChange={this.onChange}></input><br></br>
 
         <button style={{backgroundColor:'#152459', color:'#ff8a01'}}onClick={this.onClick}>Login</button>
+
+
+
         <style jsx>{`
           label {
             color: #ff8a01;
@@ -124,11 +158,15 @@ export default class Home extends React.Component {
           }
           div {
             background-color: #4d597a;
-            margin-left: 40%;
+            margin-left: 45%;
           }
         `}</style>
 
       </div>
+
+      
+      <br></br>
+
       </html>
     )
   }

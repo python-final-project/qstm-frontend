@@ -78,7 +78,9 @@ export default class ParentDashboard extends React.Component {
 
       <ParentNav id={this.state.activeParent.id} />
 
-      <h1>{this.state.activeParent.name}'s Dashboard </h1>
+      {/* <h1>{this.state.activeParent.name}'s Dashboard </h1> */}
+      <label className='qstmTitle'>{this.state.activeParent.name}'s Dashboard </label>
+
 
 
       { !this.state.showTaskInfo && (
@@ -131,6 +133,15 @@ export default class ParentDashboard extends React.Component {
        
         </html>
         <style jsx>{`
+        .qstmTitle {
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 35px;
+          width: 100%;
+          font-family: OCR A Std, monospace;
+        }
         body{
           padding-left: 50px;
         }
