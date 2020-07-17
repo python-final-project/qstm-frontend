@@ -60,7 +60,7 @@ export default class TaskForm extends React.Component {
     if (event.target.name === "completed"){    
       const newCompleted = ! this.state.completed
       let newDate_completed = this.state.date_completed
-      console.log('newDate_completed', newDate_completed)  
+      // console.log('newDate_completed', newDate_completed)  
 
       if ((newCompleted == true) && (newDate_completed == null)) {
           newDate_completed = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()

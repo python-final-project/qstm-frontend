@@ -208,7 +208,7 @@ export async function getServerSideProps(context) {
   
   let newTasksList = []
 
-  console.log('newTasksList',newTasksList)
+  // console.log('newTasksList',newTasksList)
   if (newStudentList.length > 0) {
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${newStudentList[0].id}`
     newTasksList = await getData(tasksUrl)
@@ -223,7 +223,7 @@ export async function getServerSideProps(context) {
   },]
   }
   
-  console.log('newTasksList',newTasksList)
+  // console.log('newTasksList',newTasksList)
   
   return {
       props: {

@@ -71,7 +71,7 @@ export default class Login extends React.Component{
 export async function getServerSideProps() {
   const response = await fetch(url);
   const users = await response.json();
-  console.log('this is the length', users)
+  // console.log('this is the length', users)
   return {
     props: {
       users: users,
