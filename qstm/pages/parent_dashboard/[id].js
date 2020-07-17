@@ -95,9 +95,9 @@ export default class ParentDashboard extends React.Component {
       { this.state.showTaskInfo && (
 
         <div>
-            <label> View tasks for :   </label>
+            <label style={{align:'center', alignContent:'center', marginLeft: '45%'}}> View tasks for :   </label>
 
-            <select onChange={this.handleChange}>
+            <select style={{align:'center', alignContent:'center', marginLeft: '45%'}}onChange={this.handleChange}>
             {this.state.students.map(student =>         
               <option key={student.id} value={student.id} > {student.name} </option>
             )}         
@@ -105,7 +105,7 @@ export default class ParentDashboard extends React.Component {
             <br></br>  <br></br>
 
 
-            <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}> 
+            <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01', align:'center', alignContent:'center', marginLeft: '45%'}}> 
                 {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
             </button>
             <div>
@@ -118,11 +118,11 @@ export default class ParentDashboard extends React.Component {
 
             <br></br>  <br></br>
             <Link href={`/task_history/${this.state.currentStudent_id}`}>
-                <a>View {this.state.currentStudent_name}'s tasks history </a>
+                <a style={{ align:'center', alignContent:'center', textAlign:'center'}}>View {this.state.currentStudent_name}'s tasks history </a>
             </Link>
 
             <br></br>  <br></br>
-            <p> Uncompleted tasks for {this.state.currentStudent_name}</p>
+            <p style={{align: 'center', textAlign: 'center'}}> Uncompleted tasks for {this.state.currentStudent_name}</p>
 
               <ol>
                 {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
@@ -156,13 +156,25 @@ export default class ParentDashboard extends React.Component {
         h1 {
           align: center;
           text-align: center;
-          // color: #33a7c9;
         }
         ol {
           color: #ff8a01;
+          align: center;
+          text-align: left;
+          align-content: center;
+          list-style-position: inside;
+          margin-left: 40%;
+        }
+        li {
+          align: center;
+          text-align: center;
+          align-content: center;
+          list-style-position: inside;
         }
         label {
           color: #ff8a01;
+          align: center;
+          align-content: center;
         }
         p {
           color: #ff8a01;

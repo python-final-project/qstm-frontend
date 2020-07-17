@@ -159,6 +159,13 @@ export default class StudentDashboard extends React.Component {
         }
         ol {
           color: #ff8a01;
+          align: center;
+          text-align: left;
+          align-content: center;
+          list-style-position: inside;
+          margin-left: 25%;
+          margin-right: 25%;
+          // margin-left: 40%;
         }
         label {
           color: #ff8a01;
