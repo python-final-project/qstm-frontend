@@ -78,7 +78,9 @@ export default class ParentDashboard extends React.Component {
 
       <ParentNav id={this.state.activeParent.id} />
 
-      <h1>{this.state.activeParent.name}'s Dashboard </h1>
+      {/* <h1>{this.state.activeParent.name}'s Dashboard </h1> */}
+      <label className='qstmTitle'>{this.state.activeParent.name}'s Dashboard </label>
+
 
 
       { !this.state.showTaskInfo && (
@@ -89,11 +91,8 @@ export default class ParentDashboard extends React.Component {
       )}
 
 
-        <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}>Add task</button>
-
       {/* only if the parent have students, will see this */}
       { this.state.showTaskInfo && (
-
 
         <div>
             <label> View tasks for :   </label>
@@ -106,7 +105,9 @@ export default class ParentDashboard extends React.Component {
             <br></br>  <br></br>
 
 
-            <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
+            <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}> 
+                {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
+            </button>
             <div>
               { this.state.showAddTasksForm && (
                 <NewTask student_id={ this.state.currentStudent_id} 
@@ -126,23 +127,21 @@ export default class ParentDashboard extends React.Component {
               <ol>
                 {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
               </ol>
-
-              {/* <button onClick={this.toggleShowAddTasksForm}> {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } </button>
-
-              <div>
-                { this.state.showAddTasksForm && (
-                  <NewTask student_id={ this.state.currentStudent_id} 
-                    student_name ={this.state.currentStudent_name}
-                    onCreateTask={this.handleCreateTask}  />
-                )}
-              </div> */}
-
         </div>
       )}
    
        
         </html>
         <style jsx>{`
+        .qstmTitle {
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 35px;
+          width: 100%;
+          font-family: OCR A Std, monospace;
+        }
         body{
           padding-left: 50px;
         }

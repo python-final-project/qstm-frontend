@@ -64,15 +64,13 @@ export default class TaskForm extends React.Component {
           description:'',
           class_topic:'',
           due_date: '',
-          // priority: 'N',
         });
     }
 
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} style={{marginLeft:'25%', marginRight: '25%'}}>
-                {/* <label> The student that TaskForm is receiving is <b> {this.props.student_id} </b> </label><br></br> <br></br> */}
+            <form onSubmit={this.handleSubmit} style={{marginLeft:'25%', marginRight: '25%'}} >
                 <input
                     name="student_id" id="student_id" type="hidden"  value={this.props.student_id} >
                 </input> <br></br>

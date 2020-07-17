@@ -14,9 +14,10 @@ export default class StudentDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
-        activeStudent: props.activeStudent,
-        tasks : props.tasks, 
+        todayQuote          : props.todayQuote,
+        activeStudent       : props.activeStudent,
+        tasks               : props.tasks, 
+        showAddTasksForm    : false,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -27,7 +28,6 @@ export default class StudentDashboard extends React.Component {
   async handleChange(event) {
     const selectedStudentId = event.target.value
  
-    // TODO: ADD completed=false to the query
     const url = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${event.target.value}&completed=false`
     const tasks = await getData(url)
 
@@ -43,62 +43,101 @@ export default class StudentDashboard extends React.Component {
     // this function is called by the child (Componets/NewTask) and is sending the new data that was store 
     // the child can call it BS is send as a prop in <NewTask....
     // in DB. We need to added (concat) to the state.tasks so we can call a setState an re render.
-
+    const newShowAddTasks = false
     const newTasks = this.state.tasks.concat(task)
     this.setState({
       tasks : newTasks,
+      showAddTasksForm  : newShowAddTasks,
     })
 
   }
 
+  toggleShowAddTasksForm =() => {
+    const newShowAddTasks = !this.state.showAddTasksForm
+    this.setState({
+      showAddTasksForm    : newShowAddTasks,
+    })
+  }
+
+  // allDone()
+  // {
+  //   if (this.state.tasks.length == 0) {
+  //     window.alert("0 tasks pending")
+  //   }
+  // }
 
   render(){      
 
-      //for fun
-      let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-
     return (
     <>
+        {/* {this.allDone()} */}
+
         <link rel="stylesheet"
           href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
         <html style={{backgroundColor: '#4d597a'}}>
         <body>
         
-        <StudentNav id={this.state.activeStudent.id} />
-        <h1>Student's Dashboard </h1>
+        <StudentNav id={this.state.activeStudent.id} />        
+        <label className='qstmTitle'>Student's Dashboard </label>
 
         <hr />
 
         <h3>
-            Welcome!! {this.state.activeStudent.name}!!!
+            Welcome {this.state.activeStudent.name}!!!
         </h3>
-        <p style={{align: 'center', textAlign: 'center'}}> There are {this.state.tasks.length} tasks for you</p>
+
+        <div class='quote' >
+          <i>
+            <label className='quote'> { this.state.todayQuote.quoteText } </label>
+            <label className='quote'> { this.state.todayQuote.quoteAuthor } </label>
+          </i>
+        </div>
+        
 
         <br></br>  <br></br>
             <Link href={`/task_history/${this.state.activeStudent.id}`}>
                 <a>View {this.state.activeStudent.name}'s tasks history </a>
             </Link>
 
-            <br></br>  <br></br>
+        <br></br>  <br></br>
 
+
+
+        <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}> 
+            {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
+        </button>
+        <div>
+          { this.state.showAddTasksForm && (
+             <NewTask student_id={ this.state.activeStudent.id} 
+                    onCreateTask={this.handleCreateTask}  />
+          )}
+        </div>
 
 
         <hr />
         <h3 style={{align: 'left', textAlign: 'left'}}>
-            Task List:
+            This is your Task List:
         </h3>
         <ol>
-            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+            {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
         </ol>
 
         <hr />
 
-        <NewTask student_id={ this.state.activeStudent.id} onCreateTask={this.handleCreateTask}  />
 
       </body>
       </html>
       <style jsx>{`
-        body {
+        .qstmTitle {
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 35px;
+          width: 100%;
+          font-family: OCR A Std, monospace;
+        }
+         body {
           background-color: #4d597a;
         }
         h1 {
@@ -109,6 +148,14 @@ export default class StudentDashboard extends React.Component {
           align: center;
           text-align: center;
           align-content: center;
+        }
+        .quote{
+          align: center;
+          text-align: center;
+          align-content: center;
+          color: white;
+          font-size: 22px;
+          width: 100%
         }
         ol {
           color: #ff8a01;
@@ -136,6 +183,9 @@ async function getData(url) {
 }
 
 export async function getServerSideProps(context) {
+    // const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
+    // const newTodayQuote = await getData(quoteURL)
+
 
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${context.params.id}`
     const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `${context.params.id}`
@@ -146,8 +196,9 @@ export async function getServerSideProps(context) {
     
   return {
       props: {
-        tasks : tasks,
-        activeStudent: activeStudent,
+        todayQuote    : 'newTodayQuote',
+        tasks         : tasks,
+        activeStudent : activeStudent,
       }
   }
 }

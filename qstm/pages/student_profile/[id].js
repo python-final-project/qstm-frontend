@@ -96,7 +96,12 @@ export default class StudentProfile extends React.Component {
                 <link rel="stylesheet"
                 href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
                 <StudentNav id={this.state.activeStudent.id}/>
-                <h1 style={{align:'center', textAlign:'center', color:''}}>My Account Setting Page - Student View</h1>
+                {/* <h1 style={{align:'center', textAlign:'center', color:''}}>My Account Setting Page - Student View</h1> */}
+
+                <h1 style={{align: 'center', textAlign: 'center', fontFamily: 'OCR A Std, monospace', fontSize:'35px', color:'white'}} >
+                My Account Settings Page</h1>
+
+                
 
                 <hr/>
 
@@ -120,7 +125,7 @@ export default class StudentProfile extends React.Component {
                 </button>
                 
                 {this.state.showSiteForm ? this.showSiteForm() : null}
-                </body>
+                </body>              
                 </html>
             </>
         )

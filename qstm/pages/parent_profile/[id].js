@@ -51,8 +51,6 @@ export default class ParentProfile extends React.Component {
         
         siteInfo.student_id = this.state.activeStudent
 
-        // const url = 'http://ec2-18-191-129-83.us-east-2.compute.amazonaws.com/api/v1/sites/' 
-
         const url = ApiUrl.BASE + ApiUrl.SITE
 
         await axios.post(url, siteInfo)
@@ -103,19 +101,19 @@ export default class ParentProfile extends React.Component {
                 <link rel="stylesheet"
                 href="https://bootswatch.com/4/cerulean/bootstrap.min.css" ></link>
                 <ParentNav id={this.state.activeParent.id}/>
-                <h1 style={{align:'center', textAlign:'center', color:''}}>My Account Setting Page - Parent View</h1>
 
+                <label className='qstmTitle'> My Account Settings Page</label>
                 <hr/>
 
                 <div>
                     <h3 style={{color: '#ff8a01'}}>
-                        Welcome {this.state.activeParent.name}!!!
+                        Welcome {this.state.activeParent.name} !!!
                     </h3>
                 </div>
 
                 <div> 
                     <h3>
-                        Select Student
+                        Sites of 
                         <select onChange={this.handleStudentChange}>
                             <option value="-1" style={{color:'orange'}}>SELECT STUDENT</option> 
                             {this.state.studentList.map(student => 
@@ -146,7 +144,22 @@ export default class ParentProfile extends React.Component {
                 </body>
                 
                 </html>
-            
+                <style jsx>{`
+                    .qstmTitle {
+                        align: center;
+                        text-align: center;
+                        align-content: center;
+                        color: white;
+                        font-size: 35px;
+                        width: 100%;
+                        font-family: OCR A Std, monospace;
+                    }
+                    select {
+                        width: 250px;
+                        font-size: 18px;
+                      }
+                        
+                `}</style>  
             </>
         )
     }
