@@ -96,16 +96,19 @@ export default class StudentDashboard extends React.Component {
 
         <br></br>  <br></br>
             <Link href={`/task_history/${this.state.activeStudent.id}`}>
-                <a>View {this.state.activeStudent.name}'s tasks history </a>
+              <div style={{align:'center', textAlign:'center', alignContent:'center'}}>
+                <a style={{color:'#ff8a01'}}>View {this.state.activeStudent.name}'s tasks history </a>
+                </div>
             </Link>
 
         <br></br>  <br></br>
 
 
-
+        <div style={{align:'center', alignContent:'center', textAlign:'center'}}>
         <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01'}}> 
             {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
         </button>
+        </div>
         <div>
           { this.state.showAddTasksForm && (
              <NewTask student_id={ this.state.activeStudent.id} 
@@ -115,12 +118,14 @@ export default class StudentDashboard extends React.Component {
 
 
         <hr />
-        <h3 style={{align: 'left', textAlign: 'left'}}>
+        <h3 style={{align: 'center', textAlign: 'center'}}>
             This is your Task List:
         </h3>
+        <div style={{align:'center', alignContent:'center', textAlign:'center'}}>
         <ol>
             {  this.state.tasks.filter(task => !task.completed).map(task => <Task key={task.id} task={task} />  )   }
         </ol>
+        </div>
 
         <hr />
 
@@ -159,13 +164,17 @@ export default class StudentDashboard extends React.Component {
         }
         ol {
           color: #ff8a01;
-          align: center;
-          text-align: left;
-          align-content: center;
+          // align: center;
+          // text-align: right;
+          // align-content: center;
           list-style-position: inside;
-          margin-left: 25%;
-          margin-right: 25%;
-          // margin-left: 40%;
+          // padding-left: auto;
+          
+        }
+        li {
+          // text-align: left;
+          // align: center;
+          // align-content: center;
         }
         label {
           color: #ff8a01;

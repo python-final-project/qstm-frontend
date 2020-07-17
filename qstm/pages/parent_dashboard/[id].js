@@ -104,10 +104,11 @@ export default class ParentDashboard extends React.Component {
             </select>
             <br></br>  <br></br>
 
-
+            <div style={{align:'center', alignContent:'center'}}>
             <button onClick={this.toggleShowAddTasksForm} style={{backgroundColor:'#152459', color:'#ff8a01', align:'center', alignContent:'center', marginLeft: '45%'}}> 
                 {this.state.showAddTasksForm ? 'Click to Close':'Add New Task' } 
             </button>
+            </div>
             <div>
               { this.state.showAddTasksForm && (
                 <NewTask student_id={ this.state.currentStudent_id} 
