@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import SiteForm from '../../components/sites/SiteForm';
-import PassForm from '../../components/PassForm';
+
 import SiteList from '../../components/sites/SiteList';
 import ParentNav from '../../components/nav/ParentNav';
 import { basicFetch } from '../../utils/basicFetch';

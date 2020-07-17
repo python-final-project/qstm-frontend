@@ -78,12 +78,12 @@ export default class StudentDashboard extends React.Component {
         <body>
         
         <StudentNav id={this.state.activeStudent.id} />        
-        <label className='qstmTitle'>Student's Dashboard </label>
+        <label className='qstmTitle'>{this.state.activeStudent.name}'s Dashboard </label>
 
         <hr />
 
         <h3>
-            Welcome {this.state.activeStudent.name}!!!
+            Welcome!
         </h3>
 
         <div class='quote' >
@@ -183,10 +183,14 @@ async function getData(url) {
 }
 
 export async function getServerSideProps(context) {
-    // const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
-    // const newTodayQuote = await getData(quoteURL)
 
-
+    let newTodayQuote = ''
+    try {
+    const quoteURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"     
+    newTodayQuote = await getData(quoteURL)
+  } catch(error) {
+    console.log(error)
+  }
     const tasksUrl = ApiUrl.BASE + ApiUrl.TASK + `?student_id=${context.params.id}`
     const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `${context.params.id}`
 
@@ -196,7 +200,7 @@ export async function getServerSideProps(context) {
     
   return {
       props: {
-        todayQuote    : 'newTodayQuote',
+        todayQuote    : newTodayQuote,
         tasks         : tasks,
         activeStudent : activeStudent,
       }
