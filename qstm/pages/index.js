@@ -19,9 +19,15 @@ export default class Home extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onClick  = this.onClick.bind(this);
+    this.onEnter = this.onEnter.bind(this);
 
   }
 
+  onEnter(event) {
+    if (event.key === 'Enter') {
+      this.onClick()
+    }
+  }
 
   onChange(event) {
     this.setState({
@@ -30,6 +36,10 @@ export default class Home extends React.Component {
   }
 
   async onClick() {
+
+    if (this.state.username == '' || this.state.password == '') {
+      return
+    }
 
     let url = ApiUrl.ROOT
     
@@ -40,7 +50,6 @@ export default class Home extends React.Component {
     
     try {
       const response = await axios.post(url, userInfo)
-      // console.log(response)
       window.localStorage.clear();
       window.localStorage.setItem('token', response.data);
 
@@ -59,7 +68,6 @@ export default class Home extends React.Component {
     
       window.localStorage.setItem('isParent', activeUser.is_parent)
 
-      // console.log(activeUser)
 
       if (activeUser.is_parent) {
         const parentUrl = ApiUrl.BASE + ApiUrl.PARENT + `?email=${activeUser.email}`
@@ -67,13 +75,11 @@ export default class Home extends React.Component {
 
         window.localStorage.setItem('dashboard', `/parent_dashboard/${newParent[0].id}`)
  
-        // console.log('is parent!', newParent[0])
         Router.push(`/parent_dashboard/${newParent[0].id}`);
 
       } else {
 
         const studentUrl = ApiUrl.BASE + ApiUrl.STUDENT + `?user_id=${activeUser.id}`
-        // console.log(studentUrl)
         const newStudent = await basicFetch(studentUrl)
 
         window.localStorage.setItem('dashboard', `/student_dashboard/${newStudent[0].id}`)
@@ -85,7 +91,11 @@ export default class Home extends React.Component {
       
     } catch(error) {
       if (error.response.status == 401) {
-        console.log('Invalid Credentials')
+        alert('Invalid Username or Password. Please try again.')
+        this.setState({
+          username: '',
+          password: '',
+        })
       }
     }
 
@@ -132,12 +142,12 @@ export default class Home extends React.Component {
         {/* <label>
           Username: 
         </label> */}
-        <input type="text" name="username" placeholder = 'username' value={this.state.username} onChange={this.onChange}></input><br></br>
+        <input type="text" name="username" placeholder = 'username' value={this.state.username} onKeyDown={this.onEnter} onChange={this.onChange}></input><br></br>
 
         {/* <label>
           Password: 
         </label> */}
-        <input type="password" name="password" placeholder='password' value={this.state.password} onChange={this.onChange}></input><br></br>
+        <input type="password" name="password" placeholder='password' value={this.state.password} onKeyDown={this.onEnter} onChange={this.onChange}></input><br></br>
 
         <button style={{backgroundColor:'#152459', color:'#ff8a01'}}onClick={this.onClick}>Login</button>
 
